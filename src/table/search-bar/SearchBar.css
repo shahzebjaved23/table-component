@@ -9,7 +9,6 @@
 	border-radius: 2px;	
 	font-size: 14px;
 	padding: 6px;
-	color: #f6f7fb;
 	width: 200px;
 }
 
@@ -35,7 +34,6 @@
 	border-radius: 2px;	
 	font-size: 14px;
 	padding: 6px;
-	color: #f6f7fb;
 }
 .rules-selector { position: relative; }
 .rules-selector input { text-indent: 30px }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { DataList } from "./data-list/DataList";
 import { Footer } from "./footer/Footer";
 import { Header } from "./header/Header";
 import { SearchBar } from "./search-bar/SearchBar";
@@ -20,7 +19,6 @@ export class Table extends Component {
 			<div>
 				<SearchBar eventEmitter={this.eventEmitter} tableData={this.state.tableData} />
 				<Header eventEmitter={this.eventEmitter} tableData={this.state.tableData} />
-				<DataList eventEmitter={this.eventEmitter} tableData={this.state.tableData} />
 				<Footer eventEmitter={this.eventEmitter} tableData={this.state.tableData} />
 			</div>
 		)	

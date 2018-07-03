@@ -30,11 +30,7 @@ export class SearchBar extends Component {
 					<div className="col-md-2"> 
 						<button className="btn btn-success add-rules-button"> Add Ruleset </button>
 					</div>
-				</div>	
-
-				
-
-				
+				</div>					
 
 			</div>
 		)

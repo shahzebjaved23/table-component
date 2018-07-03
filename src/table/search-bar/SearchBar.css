@@ -1,12 +1,8 @@
-.search-bar{
-	background-color: #f6f7fb;
-}
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
 
-.search-input-div{
-	padding: 10px;
-	border: 1px solid #f3f2f2;
-	border-radius: 5px;
-}
+.search-bar{ background-color: #f6f7fb; }
+
+.search-input-div{ padding: 10px; border: 1px solid #f3f2f2; border-radius: 5px; }
 
 .search-input{
 	border: 1px solid #f3f2f2;
@@ -14,18 +10,14 @@
 	font-size: 14px;
 	padding: 6px;
 	color: #f6f7fb;
-	width: 200px
+	width: 200px;
 }
 
-.rules-selector{
+.rules-selector{ margin: 10px; }
 
-}
+.add-rules-button{ margin: 10px; }
 
-.add-rules-button{
 
-}
-
-@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
 .search-input-div { position: relative; }
 .search-input-div input { text-indent: 5px }
 .search-input-div .fa-search { 
@@ -35,3 +27,32 @@
   font-size: 15px;
   color: #72aedb;
 }
+
+.rules-selector-input{
+	background-color: white;
+	border-radius: none;
+	border: 1px solid #f3f2f2;
+	border-radius: 2px;	
+	font-size: 14px;
+	padding: 6px;
+	color: #f6f7fb;
+}
+.rules-selector { position: relative; }
+.rules-selector input { text-indent: 30px }
+.rules-selector .fa-angle-down { 
+  position: absolute;
+  top: 10px;
+  left: 140px;
+  font-size: 15px;
+  color: #72aedb;
+}
+
+.rules-selector .fa-search { 
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 15px;
+  color: #72aedb;
+}
+
+

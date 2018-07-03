@@ -1,0 +1,37 @@
+.search-bar{
+	background-color: #f6f7fb;
+}
+
+.search-input-div{
+	padding: 10px;
+	border: 1px solid #f3f2f2;
+	border-radius: 5px;
+}
+
+.search-input{
+	border: 1px solid #f3f2f2;
+	border-radius: 2px;	
+	font-size: 14px;
+	padding: 6px;
+	color: #f6f7fb;
+	width: 200px
+}
+
+.rules-selector{
+
+}
+
+.add-rules-button{
+
+}
+
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+.search-input-div { position: relative; }
+.search-input-div input { text-indent: 5px }
+.search-input-div .fa-search { 
+  position: absolute;
+  top: 20px;
+  left: 180px;
+  font-size: 15px;
+  color: #72aedb;
+}

@@ -10,7 +10,7 @@ export class Footer extends Component {
 
 	render(){
 		return (
-			<div>
+			<div className="footer-div">
 				<div className="row">
 					<div className="col-md-2">Items per Page</div>
 					<div className="col-md-2">

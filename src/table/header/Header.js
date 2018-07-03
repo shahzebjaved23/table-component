@@ -9,15 +9,17 @@ export class Header extends Component {
 	}
 
 	getTableHeaders(){
-		let keysArray = Object.keys(this.state.tableData.data[0]);
-		keysArray.push(" "); 
-		return keysArray;
+		var objectKeys = Object.keys(this.state.tableData.data[0]);
+		objectKeys.push("")
+		objectKeys.push("")
+		objectKeys.push("")
+		return objectKeys;
 	}
 
 	render(){
 		return (
 			<div>
-				<table align="center" className="table text-centered" style={{width:"100%"}}>
+				<table align="center" className="table text-centered">
 					
 					<thead>
 					    <tr>
@@ -35,6 +37,12 @@ export class Header extends Component {
 												return (<td style={{ textAlign: "center"}} key={keyIndex}>{dataObject[key]}</td>)
 											})
 										}
+										<td>
+											<span style={{ color: "#1ba7f5" }} className="fas fa-pen-square"></span>					
+										</td>
+										<td>
+											<span style={{ color: "#1ba7f5" }} className="fa fa-ellipsis-v"></span>
+										</td>
 									</tr>
 								)
 							})

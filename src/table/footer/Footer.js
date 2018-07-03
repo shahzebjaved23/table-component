@@ -11,20 +11,14 @@ export class Footer extends Component {
 	render(){
 		return (
 			<div className="footer-div">
-				<div className="row">
-					<div className="col-md-2">Items per Page</div>
-					<div className="col-md-2">
-
-					</div>
-					<div className="col-md-2">
-
-					</div>
-					<div className="col-md-4"></div>
 					
-					<div className="col-md-2">
-
-					</div>
+				<span> Items per Page </span>
+				<div className="footer-select">
+					<span className="select-number">10</span>
+					<span className="fa fa-angle-down selector-control"></span>
 				</div>
+				<span className="item-description"> 1 - 10 of 40 items </span>
+					
 			</div>
 		)
 	}

@@ -3,4 +3,37 @@
 	color: #bbbbbd;
 	padding: 20px;
 	border-top: 1px solid #f2f2f2;
+	position: relative;
+}
+
+.footer-select{
+	position: absolute;
+	display: inline;
+	background-color: white; 
+	border: 1px solid #f1f1f1;
+	width: 60px;
+	height: 30px;
+	top: 15px;
+	left: 130px;
+}
+
+.footer-select .fa-angle-down{
+	position: absolute;
+	top: 8px;
+	left: 40px;
+}
+
+.selector-control{
+	cursor: pointer;
+}
+
+.select-number{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+
+.item-description{
+	position: absolute;
+	left: 200px;
 }

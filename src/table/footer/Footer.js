@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import "./Footer.css";
 
 export class Footer extends Component {
 
@@ -10,7 +11,20 @@ export class Footer extends Component {
 	render(){
 		return (
 			<div>
-				Footer
+				<div className="row">
+					<div className="col-md-2">Items per Page</div>
+					<div className="col-md-2">
+
+					</div>
+					<div className="col-md-2">
+
+					</div>
+					<div className="col-md-4"></div>
+					
+					<div className="col-md-2">
+
+					</div>
+				</div>
 			</div>
 		)
 	}

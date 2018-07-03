@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Footer } from "./footer/Footer";
-import { Header } from "./header/Header";
+import { DisplayTable } from "./display-table/DisplayTable";
 import { SearchBar } from "./search-bar/SearchBar";
 import * as  EventEmitter from "event-emitter";
 
@@ -18,7 +18,7 @@ export class Table extends Component {
 		return (
 			<div>
 				<SearchBar eventEmitter={this.eventEmitter} tableData={this.state.tableData} />
-				<Header eventEmitter={this.eventEmitter} tableData={this.state.tableData} />
+				<DisplayTable eventEmitter={this.eventEmitter} tableData={this.state.tableData} />
 				<Footer eventEmitter={this.eventEmitter} tableData={this.state.tableData} />
 			</div>
 		)	

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import "./Header.css"
+import "./DisplayTable.css"
 
-export class Header extends Component {
+export class DisplayTable extends Component {
 
 	constructor(props){
 		super(props);
@@ -10,7 +10,6 @@ export class Header extends Component {
 
 	getTableHeaders(){
 		var objectKeys = Object.keys(this.state.tableData.data[0]);
-		objectKeys.push("")
 		objectKeys.push("")
 		objectKeys.push("")
 		return objectKeys;
@@ -38,7 +37,7 @@ export class Header extends Component {
 											})
 										}
 										<td>
-											<span style={{ color: "#1ba7f5" }} className="fas fa-pen-square"></span>					
+											<span style={{ color: "#1ba7f5", paddingTop: 4 }} className="fas fa-pen-square pull-right"></span>					
 										</td>
 										<td>
 											<span style={{ color: "#1ba7f5" }} className="fa fa-ellipsis-v"></span>

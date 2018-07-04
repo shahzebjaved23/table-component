@@ -5,22 +5,40 @@ export class Footer extends Component {
 
 	constructor(props){
 		super(props);
-		this.state = { tableData: props.tableData, itemsPerPage: 10, currentPage: 1 };
+		this.state = { tableData: props.tableData, itemsPerPage: 2, currentPage: 1 };
 		document.addEventListener("click", this.closeAllSelect);
 	}
 
-	itemsInCurrentPage(){
+	paginationItemsArray(){
 		let pageItems = [];
 		let totalItems = this.state.tableData.data.length;
+		pageItems.push(this.state.itemsPerPage)
 		while(true){
-			if( totalItems - this.state.itemsPerPage >= this.state.itemsPerPage ){
+			totalItems = totalItems - this.state.itemsPerPage
+			if( totalItems >= this.state.itemsPerPage ){
 				pageItems.push(this.state.itemsPerPage);
 			}else{
 				pageItems.push(Math.abs(totalItems - this.state.itemsPerPage));
 				break;
 			}
 		}
-		return pageItems[this.state.currentPage - 1]
+		return pageItems;
+	}
+
+	paginateTableData(){
+		return this.pageStartingIndex() + this.itemsInCurrentPage();
+	}
+
+	pageStartingIndex(){
+		return this.state.itemsPerPage * this.state.currentPage - this.state.itemsPerPage + 1;
+	}
+
+	pageEndingIndex(){
+		return this.pageStartingIndex() + this.itemsInCurrentPage() - 1;
+	}
+
+	itemsInCurrentPage(){
+		return this.paginationItemsArray()[this.state.currentPage - 1];
 	}
 
 	closeAllSelect(elem){
@@ -53,7 +71,7 @@ export class Footer extends Component {
 	}
 
 	render(){
-		console.log(this.itemsInCurrentPage())
+		this.itemsInCurrentPage();
 		return (
 			<div className="footer-div">
 				
@@ -64,7 +82,7 @@ export class Footer extends Component {
 					<span className="fa fa-angle-down cursor-pointer"></span>
 				</div>
 				
-				<span className="item-description"> 1 - { this.state.itemsPerPage } of {this.state.tableData.data.length} items </span>
+				<span className="item-description"> {this.pageStartingIndex()} - {this.pageEndingIndex()} of {this.state.tableData.data.length} items </span>
 
 				<div className="left-arrow">
 					<span onClick={this.prevPage.bind(this)} className="fa fa-caret-left cursor-pointer"></span>

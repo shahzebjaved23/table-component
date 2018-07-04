@@ -15,6 +15,12 @@ export class DisplayTable extends Component {
 		return objectKeys;
 	}
 
+	componentWillMount(){
+		this.props.eventEmitter.on("paginationEvent", (paginatedArray)=>{ 
+			this.setState({ tableData: paginatedArray}) 
+		}) 
+	}
+
 	render(){
 		return (
 			<div>

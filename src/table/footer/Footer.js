@@ -26,7 +26,11 @@ export class Footer extends Component {
 	}
 
 	paginateTableData(){
-		return this.pageStartingIndex() + this.itemsInCurrentPage();
+		console.log("currentPage: ",this.state.currentPage)
+		console.log("starting: ",(this.state.currentPage - 1) * this.state.itemsPerPage)
+		console.log("ending: ", (this.state.currentPage) * this.state.itemsPerPage)
+		let paginatedArray = this.state.tableData.data.slice((this.state.currentPage - 1) * this.state.itemsPerPage, (this.state.currentPage) * this.state.itemsPerPage)
+		this.props.eventEmitter.emit("paginationEvent", { data: paginatedArray} )
 	}
 
 	pageStartingIndex(){
@@ -64,14 +68,23 @@ export class Footer extends Component {
 
 	nextPage(){
 		this.props.eventEmitter.emit("nextPage", { itemsPerPage: this.state.itemsPerPage, currentPage: this.state.currentPage})
+		if(this.state.currentPage != this.getPagesNumber() + 1){
+			this.setState({currentPage: this.state.currentPage + 1} , this.paginateTableData)
+		}
 	}
 
 	prevPage(){
 		this.props.eventEmitter.emit("prevPage", { itemsPerPage: this.state.itemsPerPage, currentPage: this.state.currentPage})
+		if(this.state.currentPage != 1){
+			this.setState({ currentPage: this.state.currentPage - 1}, this.paginateTableData)
+		}
+	}
+
+	componentDidMount(){
+		this.paginateTableData();
 	}
 
 	render(){
-		this.itemsInCurrentPage();
 		return (
 			<div className="footer-div">
 				

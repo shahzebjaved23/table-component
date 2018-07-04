@@ -5,7 +5,7 @@ export class Footer extends Component {
 
 	constructor(props){
 		super(props);
-		this.state = { tableData: props.tableData, itemsPerPage: 2, currentPage: 1 };
+		this.state = { tableData: props.tableData, itemsPerPage: 4, currentPage: 1 };
 		document.addEventListener("click", this.closeAllSelect);
 	}
 
@@ -18,7 +18,7 @@ export class Footer extends Component {
 			if( totalItems >= this.state.itemsPerPage ){
 				pageItems.push(this.state.itemsPerPage);
 			}else{
-				pageItems.push(Math.abs(totalItems - this.state.itemsPerPage));
+				pageItems.push(Math.abs(totalItems));
 				break;
 			}
 		}
@@ -26,9 +26,6 @@ export class Footer extends Component {
 	}
 
 	paginateTableData(){
-		console.log("currentPage: ",this.state.currentPage)
-		console.log("starting: ",(this.state.currentPage - 1) * this.state.itemsPerPage)
-		console.log("ending: ", (this.state.currentPage) * this.state.itemsPerPage)
 		let paginatedArray = this.state.tableData.data.slice((this.state.currentPage - 1) * this.state.itemsPerPage, (this.state.currentPage) * this.state.itemsPerPage)
 		this.props.eventEmitter.emit("paginationEvent", { data: paginatedArray} )
 	}
@@ -38,10 +35,12 @@ export class Footer extends Component {
 	}
 
 	pageEndingIndex(){
+		console.log("current page items: ", this.itemsInCurrentPage())
 		return this.pageStartingIndex() + this.itemsInCurrentPage() - 1;
 	}
 
 	itemsInCurrentPage(){
+		console.log("paginationItemsArray: ",this.paginationItemsArray())
 		return this.paginationItemsArray()[this.state.currentPage - 1];
 	}
 
@@ -68,7 +67,7 @@ export class Footer extends Component {
 
 	nextPage(){
 		this.props.eventEmitter.emit("nextPage", { itemsPerPage: this.state.itemsPerPage, currentPage: this.state.currentPage})
-		if(this.state.currentPage != this.getPagesNumber() + 1){
+		if(this.state.currentPage != this.getPagesNumber()){
 			this.setState({currentPage: this.state.currentPage + 1} , this.paginateTableData)
 		}
 	}

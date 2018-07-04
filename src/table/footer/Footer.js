@@ -20,14 +20,14 @@ export class Footer extends Component {
 				<span className="item-description"> 1 - 10 of 40 items </span>
 
 				<div className="left-arrow">
-					<span className="fa fa-angle-down cursor-pointer"></span>
+					<span className="fa fa-caret-left cursor-pointer"></span>
 				</div>
 				<div className="page-selector">
 					<span className="page-selector-number">10</span>
 					<span className="fa fa-angle-down cursor-pointer"></span>
 				</div>
 				<div className="right-arrow">
-					<span className="fa fa-angle-down cursor-pointer"></span>
+					<span className="fa fa-caret-right cursor-pointer"></span>
 				</div>
 					
 			</div>

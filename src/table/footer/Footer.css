@@ -37,3 +37,44 @@
 	position: absolute;
 	left: 200px;
 }
+
+.left-arrow .fa-caret-left{
+	position: absolute;
+	right: 120px;
+	top: 20px;
+	border: 1px solid #f1f1f1;
+	padding: 8px;
+	height: 30px;
+}
+
+.page-selector{
+	position: absolute;
+	top: 20px;
+	right: 50px;
+	border: 1px solid #f1f1f1;
+	display: inline;
+	background-color: white; 
+	width: 60px;
+	height: 30px;
+}
+
+.page-selector .fa-angle-down{
+	position: absolute;
+	top: 8px;
+	left: 40px;
+}
+
+.page-selector .page-selector-number{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+
+.right-arrow .fa-caret-right{
+	position: absolute;
+	border: 1px solid #f1f1f1;
+	padding: 8px;
+	top: 20px;
+	right: 20px;
+	height: 30px;
+}

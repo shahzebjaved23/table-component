@@ -5,7 +5,7 @@ export class Footer extends Component {
 
 	constructor(props){
 		super(props);
-		this.state = { tableData: props.tableData, itemsPerPage: 4, currentPage: 1 };
+		this.state = { tableData: props.tableData, itemsPerPage: 10, currentPage: 1 };
 		document.addEventListener("click", this.closeAllSelect);
 	}
 
@@ -35,30 +35,33 @@ export class Footer extends Component {
 	}
 
 	pageEndingIndex(){
-		console.log("current page items: ", this.itemsInCurrentPage())
 		return this.pageStartingIndex() + this.itemsInCurrentPage() - 1;
 	}
 
 	itemsInCurrentPage(){
-		console.log("paginationItemsArray: ",this.paginationItemsArray())
 		return this.paginationItemsArray()[this.state.currentPage - 1];
 	}
 
-	closeAllSelect(elem){
-		// let excludedClassNames = [ "fa fa-caret-left cursor-pointer","fa fa-caret-right cursor-pointer","fa fa-angle-down cursor-pointer"];
-
-		// var clickTargetExcluded = Array.find( element => element == elem.target.className )
-		// if(clickTargetExcluded != undefined){
-		// 	this.refs.itemsSelectList
-		// }
+	itemsSelectorChanged(){
+		let selectNode = this.refs.itemsSelect;
+		let selected = selectNode.options[selectNode.selectedIndex].value;
+		this.setState({itemsPerPage: parseInt(selected) }, this.paginateTableData);
 	}
 
-	createItemsSelectList(){
-		console.log(this.refs)
+	pageSelectorChanged(){
+		let selectNode = this.refs.pageSelect;
+		let selectedPage = selectNode.options[selectNode.selectedIndex].value;
+		this.setState({currentPage: parseInt(selectedPage) }, this.paginateTableData);
 	}
 
-	createPageSelectList(){
-		console.log(this.refs)
+	getPagesNumbersList(){
+		let pagesNumber = this.getPagesNumber();
+		let pagesNumebrsList = [];
+		while(pagesNumber != 0){
+			pagesNumebrsList.unshift(pagesNumber);
+			pagesNumber--;
+		}
+		return pagesNumebrsList;
 	}
 
 	getPagesNumber(){
@@ -79,9 +82,7 @@ export class Footer extends Component {
 		}
 	}
 
-	componentDidMount(){
-		this.paginateTableData();
-	}
+	componentDidMount(){ this.paginateTableData() }
 
 	render(){
 		return (
@@ -89,9 +90,13 @@ export class Footer extends Component {
 				
 				<span> Items per Page </span>
 				
-				<div ref="itemsSelector" className="footer-select">
-					<span className="select-number">{ this.state.itemsPerPage }</span>
+				<div className="items-select">
 					<span className="fa fa-angle-down cursor-pointer"></span>
+					<select ref="itemsSelect" onChange={this.itemsSelectorChanged.bind(this)}>
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="50">50</option>
+					</select>
 				</div>
 				
 				<span className="item-description"> {this.pageStartingIndex()} - {this.pageEndingIndex()} of {this.state.tableData.data.length} items </span>
@@ -101,8 +106,16 @@ export class Footer extends Component {
 				</div>
 				
 				<div className="page-selector">
-					<span className="page-selector-number">{ this.state.currentPage }</span>
 					<span className="fa fa-angle-down cursor-pointer"></span>
+					<select ref="pageSelect" onChange={this.pageSelectorChanged.bind(this)}>
+						{
+							this.getPagesNumbersList().map((number, index)=>{
+								return (
+									<option key={index} value={number}>{number}</option>
+								)
+							})
+						}
+					</select>
 				</div>
 				
 				<div className="right-arrow">

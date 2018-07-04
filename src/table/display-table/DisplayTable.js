@@ -10,8 +10,7 @@ export class DisplayTable extends Component {
 
 	getTableHeaders(){
 		var objectKeys = Object.keys(this.state.tableData.data[0]);
-		objectKeys.push("")
-		objectKeys.push("")
+		objectKeys.push(""); objectKeys.push("");
 		return objectKeys;
 	}
 

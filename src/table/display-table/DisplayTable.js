@@ -5,7 +5,7 @@ export class DisplayTable extends Component {
 
 	constructor(props){
 		super(props);
-		this.state = { tableData : props.tableData };
+		this.state = { tableData : props.tableData, sortOrder: 1 };
 	}
 
 	getTableHeaders(){
@@ -36,6 +36,24 @@ export class DisplayTable extends Component {
 		this.listenSearchEvent();
 	}
 
+	sortByHeader(key, index){
+		this.toggleSortOrder();
+		let sortedArray = this.state.tableData.data.sort(this.dynamicSort(key, this.state.sortOrder));
+		this.setState({ tableData: { data: sortedArray } });
+	}
+
+	toggleSortOrder(){
+		if(this.state.sortOrder == 1) this.setState({ sortOrder: -1 })
+		if(this.state.sortOrder == -1) this.setState({ sortOrder: 1 })
+	}
+
+	dynamicSort(property, sortOrder) {
+	    return function (a,b) {
+	        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+	        return result * sortOrder;
+	    }
+	}
+
 	render(){
 		return (
 			<div>
@@ -43,7 +61,13 @@ export class DisplayTable extends Component {
 					
 					<thead>
 					    <tr>
-							{this.getTableHeaders().map((k, i)=>{ return (<th style={{ textAlign: "center"}} key={i}>{k}</th>) })}
+							{
+								this.getTableHeaders().map((key, index)=>{ 
+									return (
+										<th onClick={this.sortByHeader.bind(this, key, index)} style={{ textAlign: "center", cursor: "pointer"}} key={index}>{key}</th>
+									) 
+								})
+							}
 						</tr>
 					</thead>
 					

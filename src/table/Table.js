@@ -11,7 +11,9 @@ export class Table extends Component {
 	constructor(props){
 		super(props);
 		this.eventEmitter = EventEmitter();
-		this.state = { tableData: props.data }
+		this.state = { tableData: props.data };
+		this.eventEmitter.on("nextPage", (args)=>{ console.log(args) });
+		this.eventEmitter.on("prevPage", (args)=>{ console.log(args) });
 	}
 
 	render(){

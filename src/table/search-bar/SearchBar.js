@@ -11,16 +11,17 @@ export class SearchBar extends Component {
 	searchTableData(){
 		let searchQuery = this.refs.searchInput.value;
 		let searchedArray = []; 
-		this.state.tableData.data.forEach((element)=>{
+		for(let i = 0; i < this.state.tableData.data.length; i++){
+			let element = this.state.tableData.data[i];
 			let elementKeys = Object.keys(element);
-			elementKeys.forEach((elementKey)=>{
-				if(typeof element[elementKey] == "string"){
-					if(element[elementKey].includes(searchQuery)){
-						searchedArray.unshift(element);
-					}
+			for(let j = 0; j < elementKeys.length; j++){
+				let elementKey = elementKeys[j];
+				if(typeof element[elementKey] == "string" && element[elementKey].includes(searchQuery)){
+					searchedArray.unshift(element);
+					break;
 				}
-			})
-		})
+			}
+		}
 		this.props.eventEmitter.emit("searchEvent", { data: searchedArray })
 	}
 

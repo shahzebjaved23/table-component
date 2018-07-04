@@ -17,7 +17,7 @@ export class SearchBar extends Component {
 			for(let j = 0; j < elementKeys.length; j++){
 				let elementKey = elementKeys[j];
 				if(typeof element[elementKey] == "string" && element[elementKey].includes(searchQuery)){
-					searchedArray.unshift(element);
+					searchedArray.push(element);
 					break;
 				}
 			}

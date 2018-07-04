@@ -35,7 +35,11 @@ export class Footer extends Component {
 	}
 
 	pageEndingIndex(){
-		return this.pageStartingIndex() + this.itemsInCurrentPage() - 1;
+		if(this.state.tableData.data.length <= this.state.itemsPerPage){
+			return this.state.tableData.data.length;
+		}else{
+			return this.pageStartingIndex() + this.itemsInCurrentPage() - 1;	
+		}
 	}
 
 	itemsInCurrentPage(){
@@ -85,6 +89,7 @@ export class Footer extends Component {
 	componentDidMount(){ this.paginateTableData() }
 
 	render(){
+		console.log(this.pageEndingIndex())
 		return (
 			<div className="footer-div">
 				

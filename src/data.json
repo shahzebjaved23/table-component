@@ -89,6 +89,26 @@
             "PACs": 20,
             "Inlcuded Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
+        },
+        {
+            "id": 10,
+            "Ruleset": 11235,
+            "Description": "Jewelary Store Purchase",
+            "Active Rules": 25,
+            "Inactive Rules": 5,
+            "PACs": 20,
+            "Inlcuded Psuedo Ruleset": "VC677",
+            "Real Rulesets": "NA"
+        },
+        {
+            "id": 11,
+            "Ruleset": 11235,
+            "Description": "Jewelary Store Purchase",
+            "Active Rules": 25,
+            "Inactive Rules": 5,
+            "PACs": 20,
+            "Inlcuded Psuedo Ruleset": "VC677",
+            "Real Rulesets": "NA"
         }
     ]
 }

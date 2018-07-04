@@ -3,6 +3,27 @@ import "./SearchBar.css";
 
 export class SearchBar extends Component {
 
+	constructor(props){
+		super(props);
+		this.state = { tableData: props.tableData }
+	}
+
+	searchTableData(){
+		let searchQuery = this.refs.searchInput.value;
+		let searchedArray = []; 
+		this.state.tableData.data.forEach((element)=>{
+			let elementKeys = Object.keys(element);
+			elementKeys.forEach((elementKey)=>{
+				if(typeof element[elementKey] == "string"){
+					if(element[elementKey].includes(searchQuery)){
+						searchedArray.unshift(element);
+					}
+				}
+			})
+		})
+		this.props.eventEmitter.emit("searchEvent", { data: searchedArray })
+	}
+
 	render(){
 		return (
 			<div className="search-bar">
@@ -10,8 +31,8 @@ export class SearchBar extends Component {
 				<div className="row">
 					<div className="col-md-2">
 						<div className="search-input-div">
-							<span className="fa fa-search"></span>
-							<input className="search-input" placeholder="Search By Keyword..." />
+							<span onClick={this.searchTableData.bind(this)} className="fa fa-search"></span>
+							<input onKeyUp={this.searchTableData.bind(this)} ref="searchInput" className="search-input" placeholder="Search By Keyword..." />
 						</div>
 					</div>
 					

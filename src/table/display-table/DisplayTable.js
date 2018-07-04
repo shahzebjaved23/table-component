@@ -9,15 +9,31 @@ export class DisplayTable extends Component {
 	}
 
 	getTableHeaders(){
-		var objectKeys = Object.keys(this.state.tableData.data[0]);
-		objectKeys.push(""); objectKeys.push("");
-		return objectKeys;
+		if(this.state.tableData.data.lenght > 0){
+			var objectKeys = Object.keys(this.state.tableData.data[0]);
+			objectKeys.push(""); objectKeys.push("");
+			return objectKeys;
+		}else{
+			return [];
+		}
+	}
+
+	listenPaginationEvent(){
+		this.props.eventEmitter.on("paginationEvent", (paginatedArray)=>{ 
+			if(paginatedArray.data.length > 0)
+				this.setState({ tableData: paginatedArray }); 
+		}) 
+	}
+
+	listenSearchEvent(){
+		this.props.eventEmitter.on("searchEvent", (searchedArray)=>{
+			this.setState({ tableData: searchedArray });
+		})
 	}
 
 	componentWillMount(){
-		this.props.eventEmitter.on("paginationEvent", (paginatedArray)=>{ 
-			this.setState({ tableData: paginatedArray}) 
-		}) 
+		this.listenPaginationEvent();
+		this.listenSearchEvent();
 	}
 
 	render(){

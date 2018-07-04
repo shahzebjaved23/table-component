@@ -5,7 +5,7 @@ export class DisplayTable extends Component {
 
 	constructor(props){
 		super(props);
-		this.state = { tableData : props.tableData }
+		this.state = { tableData : props.tableData };
 	}
 
 	getTableHeaders(){

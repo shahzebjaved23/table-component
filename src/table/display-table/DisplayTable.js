@@ -21,13 +21,14 @@ export class DisplayTable extends Component {
 	listenPaginationEvent(){
 		this.props.eventEmitter.on("paginationEvent", (paginatedArray)=>{ 
 			if(paginatedArray.data.length > 0)
-				this.setState({ tableData: paginatedArray }); 
+				this.setState({ tableData: paginatedArray }, () => this.applySortStyle(this.state.indexSorted) ); 
 		}) 
+		
 	}
 
 	listenSearchEvent(){
 		this.props.eventEmitter.on("searchEvent", (searchedArray)=>{
-			this.setState({ tableData: searchedArray });
+			this.setState({ tableData: searchedArray }, () => this.applySortStyle(this.state.indexSorted) );
 		})
 	}
 
@@ -44,19 +45,21 @@ export class DisplayTable extends Component {
 	}
 
 	applySortStyle(index){
-		let bodyRows = this.refs.displayTableBody.childNodes;
-		for(var i=0; i < bodyRows.length; i++){
-			bodyRows[i].childNodes[index].style.color = "#71aedb"
-		}
+		if(this.refs.displayTableBody && this.refs.displayTableHead){
+			let bodyRows = this.refs.displayTableBody.childNodes;
+			for(var i=0; i < bodyRows.length; i++){
+				bodyRows[i].childNodes[index].style.color = "#71aedb"
+			}
 
-		let headerRows = this.refs.displayTableHead.childNodes;
-		for(var i=0; i < headerRows.length; i++){
-			if(this.state.sortOrder === 1){
-				headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "block";
-				headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "none";	
-			}else if(this.state.sortOrder === -1){
-				headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "block";
-				headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "none";
+			let headerRows = this.refs.displayTableHead.childNodes;
+			for(var i=0; i < headerRows.length; i++){
+				if(this.state.sortOrder === 1){
+					headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "block";
+					headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "none";	
+				}else if(this.state.sortOrder === -1){
+					headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "block";
+					headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "none";
+				}
 			}
 		}
 	}

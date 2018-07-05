@@ -31,21 +31,19 @@ export class DisplayTable extends Component {
 		})
 	}
 
-	componentWillMount(){
-		this.listenPaginationEvent();
-		this.listenSearchEvent();
-	}
-
 	sortByHeader(key, index){
 		this.toggleSortOrder();
 		let sortedArray = this.state.tableData.data.sort(this.dynamicSort(key, this.state.sortOrder));
-		this.setState({ tableData: { data: sortedArray } });
-		this.removePrevHeaderStyles(this.state.indexSorted);
-		this.setState({ indexSorted: index });
-		this.applyHeaderStyle(index);
+		this.setSortStyles(index);
+		this.setState({ tableData: { data: sortedArray }, indexSorted: index });	
 	}
 
-	applyHeaderStyle(index){
+	setSortStyles(index){
+		this.removePrevSortStyle(this.state.indexSorted);
+		this.applySortStyle(index);
+	}
+
+	applySortStyle(index){
 		let bodyRows = this.refs.displayTableBody.childNodes;
 		for(var i=0; i < bodyRows.length; i++){
 			bodyRows[i].childNodes[index].style.color = "#71aedb"
@@ -54,17 +52,16 @@ export class DisplayTable extends Component {
 		let headerRows = this.refs.displayTableHead.childNodes;
 		for(var i=0; i < headerRows.length; i++){
 			if(this.state.sortOrder === 1){
-				headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "block";
-				headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "none";	
-			}else if(this.state.sortOrder === -1){
 				headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "block";
-				headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "none";
+				headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "none";	
+			}else if(this.state.sortOrder === -1){
+				headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "block";
+				headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "none";
 			}
-			
 		}
 	}
 
-	removePrevHeaderStyles(index){
+	removePrevSortStyle(index){
 		let bodyRows = this.refs.displayTableBody.childNodes;
 		for(var i=0; i < bodyRows.length; i++){
 			bodyRows[i].childNodes.forEach( (node) => {
@@ -92,6 +89,15 @@ export class DisplayTable extends Component {
 	    }
 	}
 
+	componentDidMount(){
+		this.applySortStyle(this.state.indexSorted);
+	}
+
+	componentWillMount(){
+		this.listenPaginationEvent();
+		this.listenSearchEvent();
+	}
+
 	render(){
 		return (
 			<div>
@@ -102,8 +108,8 @@ export class DisplayTable extends Component {
 							{
 								this.getTableHeaders().map((key, index)=>{ 
 									return (
-										<th onClick={this.sortByHeader.bind(this, key, index)} style={{ textAlign: "center", cursor: "pointer" }} key={index}>
-											<span style={{ position: "relative" }}>
+										<th style={{ textAlign: "center", cursor: "pointer" }} key={index}>
+											<span onClick={this.sortByHeader.bind(this, key, index)} style={{ position: "relative" }}>
 												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-down"></i>
 												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-up"></i>
 												{key}

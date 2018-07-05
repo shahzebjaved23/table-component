@@ -11,11 +11,6 @@ table thead tr th{
 	border: none;
 }
 
-
-table tbody tr td:first-child{
-	color: #71aedb;
-}
-
 table tbody tr:first-child{
 	border: none;
 }

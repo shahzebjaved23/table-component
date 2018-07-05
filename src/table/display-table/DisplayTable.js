@@ -5,7 +5,7 @@ export class DisplayTable extends Component {
 
 	constructor(props){
 		super(props);
-		this.state = { tableData : props.tableData, sortOrder: 1 };
+		this.state = { tableData : props.tableData, sortOrder: 1, indexSorted: 0 };
 	}
 
 	getTableHeaders(){
@@ -40,7 +40,45 @@ export class DisplayTable extends Component {
 		this.toggleSortOrder();
 		let sortedArray = this.state.tableData.data.sort(this.dynamicSort(key, this.state.sortOrder));
 		this.setState({ tableData: { data: sortedArray } });
+		this.removePrevHeaderStyles(this.state.indexSorted);
+		this.setState({ indexSorted: index });
+		this.applyHeaderStyle(index);
 	}
+
+	applyHeaderStyle(index){
+		let bodyRows = this.refs.displayTableBody.childNodes;
+		for(var i=0; i < bodyRows.length; i++){
+			bodyRows[i].childNodes[index].style.color = "#71aedb"
+		}
+
+		let headerRows = this.refs.displayTableHead.childNodes;
+		for(var i=0; i < headerRows.length; i++){
+			if(this.state.sortOrder === 1){
+				headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "block";
+				headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "none";	
+			}else if(this.state.sortOrder === -1){
+				headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "block";
+				headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "none";
+			}
+			
+		}
+	}
+
+	removePrevHeaderStyles(index){
+		let bodyRows = this.refs.displayTableBody.childNodes;
+		for(var i=0; i < bodyRows.length; i++){
+			bodyRows[i].childNodes.forEach( (node) => {
+				node.style.color = "#3d3833"	
+			})
+		}
+
+		let headerRows = this.refs.displayTableHead.childNodes;
+		for(var i=0; i < headerRows.length; i++){
+			headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "none";
+			headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "none";	
+		}	
+	}
+
 
 	toggleSortOrder(){
 		if(this.state.sortOrder == 1) this.setState({ sortOrder: -1 })
@@ -57,21 +95,27 @@ export class DisplayTable extends Component {
 	render(){
 		return (
 			<div>
-				<table align="center" className="table text-centered">
+				<table ref="displayTable" align="center" className="table text-centered">
 					
-					<thead>
+					<thead ref="displayTableHead">
 					    <tr>
 							{
 								this.getTableHeaders().map((key, index)=>{ 
 									return (
-										<th onClick={this.sortByHeader.bind(this, key, index)} style={{ textAlign: "center", cursor: "pointer"}} key={index}>{key}</th>
+										<th onClick={this.sortByHeader.bind(this, key, index)} style={{ textAlign: "center", cursor: "pointer" }} key={index}>
+											<span style={{ position: "relative" }}>
+												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-down"></i>
+												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-up"></i>
+												{key}
+											</span>
+										</th>
 									) 
 								})
 							}
 						</tr>
 					</thead>
 					
-					<tbody>
+					<tbody ref="displayTableBody">
 						{
 							this.state.tableData.data.map((dataObject,index)=>{
 								return (

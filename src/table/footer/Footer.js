@@ -54,19 +54,19 @@ export class Footer extends Component {
 	itemsSelectorChanged(){
 		let selectNode = this.refs.itemsSelect;
 		let selected = selectNode.options[selectNode.selectedIndex].value;
-		this.setState({itemsPerPage: parseInt(selected) }, this.paginateTableData);
+		this.setState({itemsPerPage: parseInt(selected,16) }, this.paginateTableData);
 	}
 
 	pageSelectorChanged(){
 		let selectNode = this.refs.pageSelect;
 		let selectedPage = selectNode.options[selectNode.selectedIndex].value;
-		this.setState({currentPage: parseInt(selectedPage) }, this.paginateTableData);
+		this.setState({currentPage: parseInt(selectedPage,16) }, this.paginateTableData);
 	}
 
 	getPagesNumbersList(){
 		let pagesNumber = this.getPagesNumber();
 		let pagesNumebrsList = [];
-		while(pagesNumber != 0){
+		while(pagesNumber !== 0){
 			pagesNumebrsList.unshift(pagesNumber);
 			pagesNumber--;
 		}
@@ -79,14 +79,14 @@ export class Footer extends Component {
 
 	nextPage(){
 		this.props.eventEmitter.emit("nextPage", { itemsPerPage: this.state.itemsPerPage, currentPage: this.state.currentPage})
-		if(this.state.currentPage != this.getPagesNumber()){
+		if(this.state.currentPage !== this.getPagesNumber()){
 			this.setState({currentPage: this.state.currentPage + 1} , this.paginateTableData)
 		}
 	}
 
 	prevPage(){
 		this.props.eventEmitter.emit("prevPage", { itemsPerPage: this.state.itemsPerPage, currentPage: this.state.currentPage})
-		if(this.state.currentPage != 1){
+		if(this.state.currentPage !== 1){
 			this.setState({ currentPage: this.state.currentPage - 1}, this.paginateTableData)
 		}
 	}

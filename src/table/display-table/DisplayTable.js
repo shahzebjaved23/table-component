@@ -47,12 +47,12 @@ export class DisplayTable extends Component {
 	applySortStyle(index){
 		if(this.refs.displayTableBody && this.refs.displayTableHead){
 			let bodyRows = this.refs.displayTableBody.childNodes;
-			for(var i=0; i < bodyRows.length; i++){
+			for(let i=0; i < bodyRows.length; i++){
 				bodyRows[i].childNodes[index].style.color = "#71aedb"
 			}
 
 			let headerRows = this.refs.displayTableHead.childNodes;
-			for(var i=0; i < headerRows.length; i++){
+			for(let i=0; i < headerRows.length; i++){
 				if(this.state.sortOrder === 1){
 					headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "block";
 					headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "none";	
@@ -66,14 +66,14 @@ export class DisplayTable extends Component {
 
 	removePrevSortStyle(index){
 		let bodyRows = this.refs.displayTableBody.childNodes;
-		for(var i=0; i < bodyRows.length; i++){
+		for(let i=0; i < bodyRows.length; i++){
 			bodyRows[i].childNodes.forEach( (node) => {
 				node.style.color = "#3d3833"	
 			})
 		}
 
 		let headerRows = this.refs.displayTableHead.childNodes;
-		for(var i=0; i < headerRows.length; i++){
+		for(let i=0; i < headerRows.length; i++){
 			headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "none";
 			headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "none";	
 		}	
@@ -81,8 +81,8 @@ export class DisplayTable extends Component {
 
 
 	toggleSortOrder(){
-		if(this.state.sortOrder == 1) this.setState({ sortOrder: -1 })
-		if(this.state.sortOrder == -1) this.setState({ sortOrder: 1 })
+		if(this.state.sortOrder === 1) this.setState({ sortOrder: -1 })
+		if(this.state.sortOrder === -1) this.setState({ sortOrder: 1 })
 	}
 
 	dynamicSort(property, sortOrder) {

@@ -33,6 +33,7 @@
 	height: 30px;
 	border:  1px solid #f1f1f1;
 	text-indent: 10px;
+	color: black;
 }
 
 .cursor-pointer{
@@ -57,6 +58,7 @@
 	border: 1px solid #f1f1f1;
 	padding: 8px;
 	height: 30px;
+	color: #71aedb;
 }
 
 .page-selector{
@@ -68,6 +70,7 @@
 .page-selector select{
 	border-radius: 0px;
 	background-color: white;
+	color: black;
 	-webkit-appearance: none;
 	-webkit-border-radius: 0px;
 	width: 60px;
@@ -83,11 +86,6 @@
 	pointer-events: none;
 }
 
-.page-selector .page-selector-number{
-	position: absolute;
-	top: 5px;
-	left: 5px;
-}
 
 .right-arrow .fa-caret-right{
 	position: absolute;
@@ -96,4 +94,5 @@
 	top: 20px;
 	right: 20px;
 	height: 30px;
+	color: #71aedb;
 }

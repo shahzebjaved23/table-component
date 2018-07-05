@@ -54,11 +54,11 @@ export class DisplayTable extends Component {
 			let headerRows = this.refs.displayTableHead.childNodes;
 			for(var i=0; i < headerRows.length; i++){
 				if(this.state.sortOrder === 1){
-					headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "block";
-					headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "none";	
-				}else if(this.state.sortOrder === -1){
 					headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "block";
-					headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "none";
+					headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "none";	
+				}else if(this.state.sortOrder === -1){
+					headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "block";
+					headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "none";
 				}
 			}
 		}
@@ -111,8 +111,8 @@ export class DisplayTable extends Component {
 							{
 								this.getTableHeaders().map((key, index)=>{ 
 									return (
-										<th style={{ textAlign: "center", cursor: "pointer" }} key={index}>
-											<span onClick={this.sortByHeader.bind(this, key, index)} style={{ position: "relative" }}>
+										<th style={{ textAlign: "center" }} key={index}>
+											<span onClick={this.sortByHeader.bind(this, key, index)} style={{ position: "relative" ,cursor: "pointer" }}>
 												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-down"></i>
 												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-up"></i>
 												{key}

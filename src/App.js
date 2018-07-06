@@ -12,12 +12,7 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.state.data)
-        return (
-            <div>
-                <Table data={this.state.data} />   
-            </div>
-        );
+        return <Table data={this.state.data} searchBar={true} footer={true} />
     }
 }
 

@@ -91,47 +91,52 @@ export class Footer extends Component {
 		}
 	}
 
-	componentDidMount(){ this.paginateTableData() }
+	componentDidMount(){ if(this.props.footer) this.paginateTableData() }
 
 	render(){
-		return (
-			<div className="footer-div">
-				
-				<span> Items per Page </span>
-				
-				<div className="items-select">
-					<span className="fa fa-angle-down cursor-pointer"></span>
-					<select ref="itemsSelect" onChange={this.itemsSelectorChanged.bind(this)}>
-						<option value="10">10</option>
-						<option value="20">20</option>
-						<option value="50">50</option>
-					</select>
-				</div>
-				
-				<span className="item-description"> {this.pageStartingIndex()} - {this.pageEndingIndex()} of {this.state.tableData.data.length} items </span>
-
-				<div className="left-arrow">
-					<span onClick={this.prevPage.bind(this)} className="fa fa-caret-left cursor-pointer"></span>
-				</div>
-				
-				<div className="page-selector">
-					<span className="fa fa-angle-down cursor-pointer"></span>
-					<select ref="pageSelect" onChange={this.pageSelectorChanged.bind(this)}>
-						{
-							this.getPagesNumbersList().map((number, index)=>{
-								return (
-									<option key={index} value={number}>{number}</option>
-								)
-							})
-						}
-					</select>
-				</div>
-				
-				<div className="right-arrow">
-					<span onClick={this.nextPage.bind(this)} className="fa fa-caret-right cursor-pointer"></span>
-				</div>
+		if(this.props.footer){
+			return (
+				<div className="footer-div">
 					
-			</div>
-		)
+					<span> Items per Page </span>
+					
+					<div className="items-select">
+						<span className="fa fa-angle-down cursor-pointer"></span>
+						<select ref="itemsSelect" onChange={this.itemsSelectorChanged.bind(this)}>
+							<option value="10">10</option>
+							<option value="20">20</option>
+							<option value="50">50</option>
+						</select>
+					</div>
+					
+					<span className="item-description"> {this.pageStartingIndex()} - {this.pageEndingIndex()} of {this.state.tableData.data.length} items </span>
+
+					<div className="left-arrow">
+						<span onClick={this.prevPage.bind(this)} className="fa fa-caret-left cursor-pointer"></span>
+					</div>
+					
+					<div className="page-selector">
+						<span className="fa fa-angle-down cursor-pointer"></span>
+						<select ref="pageSelect" onChange={this.pageSelectorChanged.bind(this)}>
+							{
+								this.getPagesNumbersList().map((number, index)=>{
+									return (
+										<option key={index} value={number}>{number}</option>
+									)
+								})
+							}
+						</select>
+					</div>
+					
+					<div className="right-arrow">
+						<span onClick={this.nextPage.bind(this)} className="fa fa-caret-right cursor-pointer"></span>
+					</div>
+						
+				</div>
+			)	
+		}else{
+			return (<div></div>)
+		}
+		
 	}
 }

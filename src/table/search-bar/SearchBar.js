@@ -27,35 +27,39 @@ export class SearchBar extends Component {
 	}
 
 	render(){
-		return (
-			<div className="search-bar">
-				
-				<div className="row">
-					<div className="col-md-2">
-						<div className="search-input-div">
-							<span onClick={this.searchTableData.bind(this)} className="fa fa-search"></span>
-							<input onKeyUp={this.searchTableData.bind(this)} ref="searchInput" className="search-input" placeholder="Search By Keyword..." />
-						</div>
-					</div>
+		if(this.props.searchBar){
+			return (
+				<div className="search-bar">
 					
-					<div className="col-md-2">
-						<div className="rules-selector">
-							<div>
-								<span className="fa fa-angle-down"></span>
-								<span className="fa fa-search"></span>
-								<input className="rules-selector-input" placeholder="View All Rules" />
+					<div className="row">
+						<div className="col-md-2">
+							<div className="search-input-div">
+								<span onClick={this.searchTableData.bind(this)} className="fa fa-search"></span>
+								<input onKeyUp={this.searchTableData.bind(this)} ref="searchInput" className="search-input" placeholder="Search By Keyword..." />
 							</div>
 						</div>
-					</div>
+						
+						<div className="col-md-2">
+							<div className="rules-selector">
+								<div>
+									<span className="fa fa-angle-down"></span>
+									<span className="fa fa-search"></span>
+									<input className="rules-selector-input" placeholder="View All Rules" />
+								</div>
+							</div>
+						</div>
 
-					<div className="col-md-6"></div>
-					
-					<div className="col-md-2"> 
-						<button className="btn btn-success add-rules-button"> Add Ruleset </button>
-					</div>
-				</div>					
+						<div className="col-md-6"></div>
+						
+						<div className="col-md-2"> 
+							<button className="btn btn-success add-rules-button"> Add Ruleset </button>
+						</div>
+					</div>					
 
-			</div>
-		)
+				</div>
+			)
+		}else{
+			return (<div></div>)
+		}
 	}
 }

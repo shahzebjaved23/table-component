@@ -12,6 +12,7 @@ export class Table extends Component {
 	}
 
 	render(){
+		console.log(EventEmitter)
 		let eventEmitter = EventEmitter();
 		return (
 			<div>

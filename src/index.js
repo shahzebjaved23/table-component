@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Footer } from "./footer/Footer";
 import { DisplayTable } from "./display-table/DisplayTable";
 import { SearchBar } from "./search-bar/SearchBar";
-import * as  EventEmitter from "event-emitter";
+import * as EventEmitter from "event-emitter";
 
 export class Table extends Component {
 	

@@ -4,7 +4,8 @@
   "description": "A react js table component",
   "main": "build/index.js",
   "peerDependencies": {
-    "react": "^15.5.4"
+    "react": "^15.5.4",
+    "event-emitter": "^0.3.5"
   },
   "dependencies": {
     "react": "^15.5.4",

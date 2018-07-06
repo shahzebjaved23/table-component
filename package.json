@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "event-emitter": "^0.3.5",
     "react": "^16.4.1",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "reactjs-table-comp": "git+https://github.com/shahzebjaved23/table-component.git#module-development"
   },
   "scripts": {
     "start": "react-scripts start",

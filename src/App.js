@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table } from './table/Table.js';
+import { Table } from 'reactjs-table-comp';
 import './App.css';
 
 class App extends Component {

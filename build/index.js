@@ -1298,7 +1298,7 @@ var Table = exports.Table = function (_Component) {
 		key: "render",
 		value: function render() {
 			console.log(EventEmitter);
-			var eventEmitter = EventEmitter();
+			var eventEmitter = EventEmitter.default();
 			return _react2.default.createElement(
 				"div",
 				null,

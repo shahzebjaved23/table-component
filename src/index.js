@@ -13,7 +13,7 @@ export class Table extends Component {
 
 	render(){
 		console.log(EventEmitter)
-		let eventEmitter = EventEmitter();
+		let eventEmitter = EventEmitter.default();
 		return (
 			<div>
 				<SearchBar eventEmitter={eventEmitter} tableData={this.state.tableData} searchBar={this.props.searchBar} />

@@ -1297,12 +1297,13 @@ var Table = exports.Table = function (_Component) {
 	_createClass(Table, [{
 		key: "render",
 		value: function render() {
+			var eventEmitter = EventEmitter();
 			return _react2.default.createElement(
 				"div",
 				null,
-				_react2.default.createElement(_SearchBar.SearchBar, { eventEmitter: EventEmitter, tableData: this.state.tableData, searchBar: this.props.searchBar }),
-				_react2.default.createElement(_DisplayTable.DisplayTable, { eventEmitter: EventEmitter, tableData: this.state.tableData }),
-				_react2.default.createElement(_Footer.Footer, { eventEmitter: EventEmitter, tableData: this.state.tableData, footer: this.props.footer })
+				_react2.default.createElement(_SearchBar.SearchBar, { eventEmitter: eventEmitter, tableData: this.state.tableData, searchBar: this.props.searchBar }),
+				_react2.default.createElement(_DisplayTable.DisplayTable, { eventEmitter: eventEmitter, tableData: this.state.tableData }),
+				_react2.default.createElement(_Footer.Footer, { eventEmitter: eventEmitter, tableData: this.state.tableData, footer: this.props.footer })
 			);
 		}
 	}]);

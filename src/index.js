@@ -12,11 +12,12 @@ export class Table extends Component {
 	}
 
 	render(){
+		let eventEmitter = EventEmitter();
 		return (
 			<div>
-				<SearchBar eventEmitter={EventEmitter} tableData={this.state.tableData} searchBar={this.props.searchBar} />
-				<DisplayTable eventEmitter={EventEmitter} tableData={this.state.tableData} />
-				<Footer eventEmitter={EventEmitter} tableData={this.state.tableData} footer={this.props.footer} />
+				<SearchBar eventEmitter={eventEmitter} tableData={this.state.tableData} searchBar={this.props.searchBar} />
+				<DisplayTable eventEmitter={eventEmitter} tableData={this.state.tableData} />
+				<Footer eventEmitter={eventEmitter} tableData={this.state.tableData} footer={this.props.footer} />
 			</div>
 		)	
 	}

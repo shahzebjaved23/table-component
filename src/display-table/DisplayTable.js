@@ -28,7 +28,11 @@ export class DisplayTable extends Component {
 
 	listenSearchEvent(){
 		this.props.eventEmitter.on("searchEvent", (searchedArray)=>{
-			this.setState({ tableData: searchedArray }, () => this.applySortStyle(this.state.indexSorted) );
+			this.setState({ tableData: searchedArray }, () => {
+					if(searchedArray.data.length > 0)
+						this.applySortStyle(this.state.indexSorted) 
+				}
+			);
 		})
 	}
 

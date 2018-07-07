@@ -20,15 +20,18 @@ export class DisplayTable extends Component {
 
 	listenPaginationEvent(){
 		this.props.eventEmitter.on("paginationEvent", (paginatedArray)=>{ 
-			if(paginatedArray.data.length > 0)
-				this.setState({ tableData: paginatedArray }, () => this.applySortStyle(this.state.indexSorted) ); 
+			if(paginatedArray.data.length > 0) 
+				this.setState({ tableData: paginatedArray }, () => this.applySortStyle(this.state.indexSorted) ) 
 		}) 
-		
 	}
 
 	listenSearchEvent(){
 		this.props.eventEmitter.on("searchEvent", (searchedArray)=>{
-			this.setState({ tableData: searchedArray }, () => this.applySortStyle(this.state.indexSorted) );
+			this.setState({ tableData: searchedArray }, () => {
+					if(searchedArray.data.length > 0) 
+						this.applySortStyle(this.state.indexSorted) 
+				}
+			)	
 		})
 	}
 

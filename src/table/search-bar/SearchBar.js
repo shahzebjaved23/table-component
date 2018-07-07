@@ -32,14 +32,14 @@ export class SearchBar extends Component {
 				<div className="search-bar">
 					
 					<div className="row">
-						<div className="col-md-2">
+						<div className="col-sm-3">
 							<div className="search-input-div">
 								<span onClick={this.searchTableData.bind(this)} className="fa fa-search"></span>
 								<input onKeyUp={this.searchTableData.bind(this)} ref="searchInput" className="search-input" placeholder="Search By Keyword..." />
 							</div>
 						</div>
 						
-						<div className="col-md-2">
+						<div className="col-sm-2">
 							<div className="rules-selector">
 								<div>
 									<span className="fa fa-angle-down"></span>
@@ -49,7 +49,7 @@ export class SearchBar extends Component {
 							</div>
 						</div>
 
-						<div className="col-md-6"></div>
+						<div className="col-md-5"></div>
 						
 						<div className="col-md-2"> 
 							<button className="btn btn-success add-rules-button"> Add Ruleset </button>

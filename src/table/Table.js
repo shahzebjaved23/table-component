@@ -18,7 +18,7 @@ export class Table extends Component {
 		return (
 			<div>
 				<SearchBar eventEmitter={this.eventEmitter} tableData={this.state.tableData} searchBar={this.props.searchBar} />
-				<DisplayTable eventEmitter={this.eventEmitter} tableData={this.state.tableData} />
+				<DisplayTable eventEmitter={this.eventEmitter} tableData={this.state.tableData} editButtons={this.props.editButtons} />
 				<Footer eventEmitter={this.eventEmitter} tableData={this.state.tableData} footer={this.props.footer} />
 			</div>
 		)	

@@ -1,5 +1,9 @@
 {
     "headerMetadata": {
+        "id": {
+            "name": "Id",
+            "amount":false
+        },
         "Ruleset": {
             "name": "Ruleset",
             "amount":false
@@ -23,6 +27,10 @@
         "InlcudedPsuedoRuleset": {
             "name": "Included Psuedo Ruleset",
             "amount":false
+        },
+        "RealRuleset": {
+            "name": "Real Rule Set",
+            "amount":false
         }
     },
 
@@ -33,7 +41,7 @@
             "Description": "Jewelary Store Purchase",
             "Active Rules": 25,
             "Inactive Rules": 5,
-            "PACs": 20,
+            "PAC": 20,
             "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
@@ -43,7 +51,7 @@
             "Description": "Jewelary Store Purchase",
             "Active Rules": 25,
             "Inactive Rules": 5,
-            "PACs": 20,
+            "PAC": 20,
             "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
@@ -53,7 +61,7 @@
             "Description": "Jewelary Store Purchase",
             "Active Rules": 25,
             "Inactive Rules": 5,
-            "PACs": 20,
+            "PAC": 20,
             "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
@@ -63,7 +71,7 @@
             "Description": "Jewelary Store Purchase",
             "Active Rules": 25,
             "Inactive Rules": 5,
-            "PACs": 20,
+            "PAC": 20,
             "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
@@ -73,7 +81,7 @@
             "Description": "Jewelary Store Purchase",
             "Active Rules": 25,
             "Inactive Rules": 5,
-            "PACs": 20,
+            "PAC": 20,
             "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
@@ -83,7 +91,7 @@
             "Description": "Jewelary Store Purchase",
             "Active Rules": 25,
             "Inactive Rules": 5,
-            "PACs": 20,
+            "PAC": 20,
             "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
@@ -93,7 +101,7 @@
             "Description": "Jewelary Store Purchase",
             "Active Rules": 25,
             "Inactive Rules": 5,
-            "PACs": 20,
+            "PAC": 20,
             "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
@@ -103,7 +111,7 @@
             "Description": "Jewelary Store Purchase",
             "Active Rules": 25,
             "Inactive Rules": 5,
-            "PACs": 20,
+            "PAC": 20,
             "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
@@ -113,7 +121,7 @@
             "Description": "Jewelary Store Purchase",
             "Active Rules": 25,
             "Inactive Rules": 5,
-            "PACs": 20,
+            "PAC": 20,
             "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
@@ -123,7 +131,7 @@
             "Description": "Jewelary Store Purchase",
             "Active Rules": 25,
             "Inactive Rules": 5,
-            "PACs": 20,
+            "PAC": 20,
             "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
@@ -133,7 +141,7 @@
             "Description": "Jewelary Store Purchase",
             "Active Rules": 25,
             "Inactive Rules": 5,
-            "PACs": 20,
+            "PAC": 20,
             "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         }

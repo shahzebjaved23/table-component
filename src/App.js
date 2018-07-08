@@ -10,7 +10,7 @@ class App extends Component {
     }
 
     render() {
-        return <Table data={this.state.tableData} searchBar={true} footer={true} />
+        return <Table data={this.state.tableData} searchBar={true} footer={true} editButtons={false} />
     }
 }
 

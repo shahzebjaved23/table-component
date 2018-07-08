@@ -15,11 +15,36 @@ export class DisplayTable extends Component {
 			
 			for(let i=0; i< headerMetaDataKeys.length; i++){
 				let headerObject = this.state.tableData.headerMetadata[headerMetaDataKeys[i]];
-				headersArray.unshift(headerObject);
+				headersArray.push(headerObject);
 			}
+			headersArray = this.applyEditButtons(headersArray);
 			return headersArray;
 		}else{
 			return [];
+		}
+	}
+
+	applyEditButtons(headersArray){
+		if(this.props.editButtons){
+			headersArray.push({}); headersArray.push({});
+			return headersArray;
+		}else{
+			return headersArray;
+		}	
+	}
+
+	getEditButtons(){
+		if(this.props.editButtons){
+			return [
+				<td>
+					<span style={{ color: "#1ba7f5", paddingTop: 4 }} className="fas fa-pen-square pull-right"></span>					
+				</td>,
+				<td>
+					<span style={{ color: "#1ba7f5" }} className="fa fa-ellipsis-v"></span>
+				</td>
+			]
+		}else{
+			return []
 		}
 	}
 
@@ -157,12 +182,7 @@ export class DisplayTable extends Component {
 												return (<td style={{ textAlign: this.isAmount(key) ? "right" : "center" }} key={keyIndex}>{dataObject[key]}</td>)
 											})
 										}
-										<td>
-											<span style={{ color: "#1ba7f5", paddingTop: 4 }} className="fas fa-pen-square pull-right"></span>					
-										</td>
-										<td>
-											<span style={{ color: "#1ba7f5" }} className="fa fa-ellipsis-v"></span>
-										</td>
+										{ this.getEditButtons().map( obj => obj ) }
 									</tr>
 								)
 							})

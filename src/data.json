@@ -1,4 +1,31 @@
 {
+    "headerMetadata": {
+        "Ruleset": {
+            "name": "Ruleset",
+            "amount":false
+        },
+        "Description": {
+            "name": "Description",
+            "amount":false
+        },
+        "ActiveRules": {
+            "name": "Active Rules",
+            "amount":true
+        },
+        "Inactive": {
+            "name": "Inactive Rules",
+            "amount":true
+        },
+        "Pac":{
+            "name": "PAC",
+            "amount": true
+        },
+        "InlcudedPsuedoRuleset": {
+            "name": "Included Psuedo Ruleset",
+            "amount":false
+        }
+    },
+
     "data": [
         {
             "id": 1,
@@ -7,7 +34,7 @@
             "Active Rules": 25,
             "Inactive Rules": 5,
             "PACs": 20,
-            "Inlcuded Psuedo Ruleset": "VC677",
+            "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
         {
@@ -17,7 +44,7 @@
             "Active Rules": 25,
             "Inactive Rules": 5,
             "PACs": 20,
-            "Inlcuded Psuedo Ruleset": "VC677",
+            "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
         {
@@ -27,7 +54,7 @@
             "Active Rules": 25,
             "Inactive Rules": 5,
             "PACs": 20,
-            "Inlcuded Psuedo Ruleset": "VC677",
+            "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
         {
@@ -37,7 +64,7 @@
             "Active Rules": 25,
             "Inactive Rules": 5,
             "PACs": 20,
-            "Inlcuded Psuedo Ruleset": "VC677",
+            "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
         {
@@ -47,7 +74,7 @@
             "Active Rules": 25,
             "Inactive Rules": 5,
             "PACs": 20,
-            "Inlcuded Psuedo Ruleset": "VC677",
+            "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
         {
@@ -57,7 +84,7 @@
             "Active Rules": 25,
             "Inactive Rules": 5,
             "PACs": 20,
-            "Inlcuded Psuedo Ruleset": "VC677",
+            "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
         {
@@ -67,7 +94,7 @@
             "Active Rules": 25,
             "Inactive Rules": 5,
             "PACs": 20,
-            "Inlcuded Psuedo Ruleset": "VC677",
+            "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
         {
@@ -77,7 +104,7 @@
             "Active Rules": 25,
             "Inactive Rules": 5,
             "PACs": 20,
-            "Inlcuded Psuedo Ruleset": "VC677",
+            "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
         {
@@ -87,7 +114,7 @@
             "Active Rules": 25,
             "Inactive Rules": 5,
             "PACs": 20,
-            "Inlcuded Psuedo Ruleset": "VC677",
+            "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
         {
@@ -97,7 +124,7 @@
             "Active Rules": 25,
             "Inactive Rules": 5,
             "PACs": 20,
-            "Inlcuded Psuedo Ruleset": "VC677",
+            "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         },
         {
@@ -107,7 +134,7 @@
             "Active Rules": 25,
             "Inactive Rules": 5,
             "PACs": 20,
-            "Inlcuded Psuedo Ruleset": "VC677",
+            "Included Psuedo Ruleset": "VC677",
             "Real Rulesets": "NA"
         }
     ]

@@ -6,13 +6,11 @@ class App extends Component {
 
     constructor(){
         super();
-        this.state = {
-            data: require("./data.json")
-        }
+        this.state = { tableData: require("./data.json") };
     }
 
     render() {
-        return <Table data={this.state.data} searchBar={true} footer={true} />
+        return <Table data={this.state.tableData} searchBar={true} footer={true} />
     }
 }
 

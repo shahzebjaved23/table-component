@@ -9,25 +9,44 @@ export class DisplayTable extends Component {
 	}
 
 	getTableHeaders(){
-		if(this.state.tableData.data.length > 0){
-			var objectKeys = Object.keys(this.state.tableData.data[0]);
-			objectKeys.push(""); objectKeys.push("");
-			return objectKeys;
+		if(this.state.tableData.headerMetadata != null){
+			let headerMetaDataKeys = Object.keys(this.state.tableData.headerMetadata);
+			let headersArray = [];
+			
+			for(let i=0; i< headerMetaDataKeys.length; i++){
+				let headerObject = this.state.tableData.headerMetadata[headerMetaDataKeys[i]];
+				headersArray.unshift(headerObject);
+			}
+			return headersArray;
 		}else{
 			return [];
 		}
 	}
 
+	isAmount(key){
+		let amountVal = false;
+		let headerMetaDataKeys = Object.keys(this.state.tableData.headerMetadata);
+
+		for(let i=0; i< headerMetaDataKeys.length; i++){
+			let headerObject = this.state.tableData.headerMetadata[headerMetaDataKeys[i]];
+			if(headerObject.name == key){
+				amountVal = headerObject.amount;
+				break;
+			}
+		}
+		return amountVal;
+	}
+
 	listenPaginationEvent(){
 		this.props.eventEmitter.on("paginationEvent", (paginatedArray)=>{ 
 			if(paginatedArray.data.length > 0) 
-				this.setState({ tableData: paginatedArray }, () => this.applySortStyle(this.state.indexSorted) ) 
+				this.setState({ tableData: { data: paginatedArray.data, headerMetadata: this.state.tableData.headerMetadata } }, () => this.applySortStyle(this.state.indexSorted) ) 
 		}) 
 	}
 
 	listenSearchEvent(){
 		this.props.eventEmitter.on("searchEvent", (searchedArray)=>{
-			this.setState({ tableData: searchedArray }, () => {
+			this.setState({ tableData:{ data: searchedArray.data, headerMetadata: this.state.tableData.headerMetadata } }, () => {
 					if(searchedArray.data.length > 0) 
 						this.applySortStyle(this.state.indexSorted) 
 				}
@@ -39,7 +58,7 @@ export class DisplayTable extends Component {
 		this.toggleSortOrder();
 		let sortedArray = this.state.tableData.data.sort(this.dynamicSort(key, this.state.sortOrder));
 		this.setSortStyles(index);
-		this.setState({ tableData: { data: sortedArray }, indexSorted: index });	
+		this.setState({ tableData: { data: sortedArray, headerMetadata: this.state.tableData.headerMetadata }, indexSorted: index });	
 	}
 
 	setSortStyles(index){
@@ -105,6 +124,7 @@ export class DisplayTable extends Component {
 	}
 
 	render(){
+		console.log(this.state.tableData.data);
 		return (
 			<div>
 				<table ref="displayTable" align="center" className="table text-centered">
@@ -112,13 +132,13 @@ export class DisplayTable extends Component {
 					<thead ref="displayTableHead">
 					    <tr>
 							{
-								this.getTableHeaders().map((key, index)=>{ 
+								this.getTableHeaders().map((headerObj, index)=>{ 
 									return (
 										<th style={{ textAlign: "center" }} key={index}>
-											<span onClick={this.sortByHeader.bind(this, key, index)} style={{ position: "relative" ,cursor: "pointer" }}>
+											<span onClick={this.sortByHeader.bind(this, headerObj.name, index)} style={{ position: "relative" ,cursor: "pointer" }}>
 												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-down"></i>
 												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-up"></i>
-												{key}
+												{headerObj.name}
 											</span>
 										</th>
 									) 
@@ -134,7 +154,7 @@ export class DisplayTable extends Component {
 									<tr key={index}> 
 										{
 											Object.keys(dataObject).map((key, keyIndex)=>{
-												return (<td style={{ textAlign: "center"}} key={keyIndex}>{dataObject[key]}</td>)
+												return (<td style={{ textAlign: this.isAmount(key) ? "right" : "center" }} key={keyIndex}>{dataObject[key]}</td>)
 											})
 										}
 										<td>

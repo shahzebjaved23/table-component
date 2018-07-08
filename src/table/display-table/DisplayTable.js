@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import "./DisplayTable.css"
 
 export class DisplayTable extends Component {
 
@@ -149,7 +148,6 @@ export class DisplayTable extends Component {
 	}
 
 	render(){
-		console.log(this.state.tableData.data);
 		return (
 			<div>
 				<table ref="displayTable" align="center" className="table text-centered">

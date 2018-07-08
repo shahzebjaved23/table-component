@@ -20,7 +20,6 @@
     "email": "shahzebjaved23@gmail.com"
   },
   "devDependencies": {
-    "react": "^15.5.4",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",

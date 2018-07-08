@@ -154,12 +154,12 @@ export class DisplayTable extends Component {
 			<div>
 				<table ref="displayTable" align="center" className="table text-centered">
 					
-					<thead ref="displayTableHead">
+					<thead ref="displayTableHead" style={{ backgroundColor: "#f6f7fb", color: "#62656c", borderTop: "1px solid #f2f2f2", borderBottom: "1px solid #f2f2f2" }}>
 					    <tr>
 							{
 								this.getTableHeaders().map((headerObj, index)=>{ 
 									return (
-										<th style={{ textAlign: "center" }} key={index}>
+										<th style={{ textAlign: "center", fontWeight: "normal", borderTop: "none", border: "none" }} key={index}>
 											<span onClick={this.sortByHeader.bind(this, headerObj.name, index)} style={{ position: "relative" ,cursor: "pointer" }}>
 												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-down"></i>
 												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-up"></i>

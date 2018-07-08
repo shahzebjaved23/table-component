@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import "./DisplayTable.css"
 
 export class DisplayTable extends Component {
 
@@ -9,30 +8,73 @@ export class DisplayTable extends Component {
 	}
 
 	getTableHeaders(){
-		if(this.state.tableData.data.length > 0){
-			var objectKeys = Object.keys(this.state.tableData.data[0]);
-			objectKeys.push(""); objectKeys.push("");
-			return objectKeys;
+		if(this.state.tableData.headerMetadata != null){
+			let headerMetaDataKeys = Object.keys(this.state.tableData.headerMetadata);
+			let headersArray = [];
+			
+			for(let i=0; i< headerMetaDataKeys.length; i++){
+				let headerObject = this.state.tableData.headerMetadata[headerMetaDataKeys[i]];
+				headersArray.push(headerObject);
+			}
+			headersArray = this.applyEditButtons(headersArray);
+			return headersArray;
 		}else{
 			return [];
 		}
 	}
 
+	applyEditButtons(headersArray){
+		if(this.props.editButtons){
+			headersArray.push({}); headersArray.push({});
+			return headersArray;
+		}else{
+			return headersArray;
+		}	
+	}
+
+	getEditButtons(){
+		if(this.props.editButtons){
+			return [
+				<td>
+					<span style={{ color: "#1ba7f5", paddingTop: 4 }} className="fas fa-pen-square pull-right"></span>					
+				</td>,
+				<td>
+					<span style={{ color: "#1ba7f5" }} className="fa fa-ellipsis-v"></span>
+				</td>
+			]
+		}else{
+			return []
+		}
+	}
+
+	isAmount(key){
+		let amountVal = false;
+		let headerMetaDataKeys = Object.keys(this.state.tableData.headerMetadata);
+
+		for(let i=0; i< headerMetaDataKeys.length; i++){
+			let headerObject = this.state.tableData.headerMetadata[headerMetaDataKeys[i]];
+			if(headerObject.name == key){
+				amountVal = headerObject.amount;
+				break;
+			}
+		}
+		return amountVal;
+	}
+
 	listenPaginationEvent(){
 		this.props.eventEmitter.on("paginationEvent", (paginatedArray)=>{ 
-			if(paginatedArray.data.length > 0)
-				this.setState({ tableData: paginatedArray }, () => this.applySortStyle(this.state.indexSorted) ); 
+			if(paginatedArray.data.length > 0) 
+				this.setState({ tableData: { data: paginatedArray.data, headerMetadata: this.state.tableData.headerMetadata } }, () => this.applySortStyle(this.state.indexSorted) ) 
 		}) 
-		
 	}
 
 	listenSearchEvent(){
 		this.props.eventEmitter.on("searchEvent", (searchedArray)=>{
-			this.setState({ tableData: searchedArray }, () => {
-					if(searchedArray.data.length > 0)
+			this.setState({ tableData:{ data: searchedArray.data, headerMetadata: this.state.tableData.headerMetadata } }, () => {
+					if(searchedArray.data.length > 0) 
 						this.applySortStyle(this.state.indexSorted) 
 				}
-			);
+			)	
 		})
 	}
 
@@ -40,7 +82,7 @@ export class DisplayTable extends Component {
 		this.toggleSortOrder();
 		let sortedArray = this.state.tableData.data.sort(this.dynamicSort(key, this.state.sortOrder));
 		this.setSortStyles(index);
-		this.setState({ tableData: { data: sortedArray }, indexSorted: index });	
+		this.setState({ tableData: { data: sortedArray, headerMetadata: this.state.tableData.headerMetadata }, indexSorted: index });	
 	}
 
 	setSortStyles(index){
@@ -110,16 +152,16 @@ export class DisplayTable extends Component {
 			<div>
 				<table ref="displayTable" align="center" className="table text-centered">
 					
-					<thead ref="displayTableHead">
+					<thead ref="displayTableHead" style={{ backgroundColor: "#f6f7fb", color: "#62656c", borderTop: "1px solid #f2f2f2", borderBottom: "1px solid #f2f2f2" }}>
 					    <tr>
 							{
-								this.getTableHeaders().map((key, index)=>{ 
+								this.getTableHeaders().map((headerObj, index)=>{ 
 									return (
-										<th style={{ textAlign: "center" }} key={index}>
-											<span onClick={this.sortByHeader.bind(this, key, index)} style={{ position: "relative" ,cursor: "pointer" }}>
+										<th style={{ textAlign: "center", fontWeight: "normal", borderTop: "none", border: "none" }} key={index}>
+											<span onClick={this.sortByHeader.bind(this, headerObj.name, index)} style={{ position: "relative" ,cursor: "pointer" }}>
 												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-down"></i>
 												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-up"></i>
-												{key}
+												{headerObj.name}
 											</span>
 										</th>
 									) 
@@ -135,15 +177,10 @@ export class DisplayTable extends Component {
 									<tr key={index}> 
 										{
 											Object.keys(dataObject).map((key, keyIndex)=>{
-												return (<td style={{ textAlign: "center"}} key={keyIndex}>{dataObject[key]}</td>)
+												return (<td style={{ textAlign: this.isAmount(key) ? "right" : "center" }} key={keyIndex}>{dataObject[key]}</td>)
 											})
 										}
-										<td>
-											<span style={{ color: "#1ba7f5", paddingTop: 4 }} className="fas fa-pen-square pull-right"></span>					
-										</td>
-										<td>
-											<span style={{ color: "#1ba7f5" }} className="fa fa-ellipsis-v"></span>
-										</td>
+										{ this.getEditButtons().map( obj => obj ) }
 									</tr>
 								)
 							})

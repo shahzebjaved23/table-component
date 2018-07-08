@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import "./Footer.css";
 
 export class Footer extends Component {
+
+	tableData: any;
 
 	constructor(props){
 		super(props);
 		this.state = { tableData: props.tableData, itemsPerPage: 10, currentPage: 1 };
 		document.addEventListener("click", this.closeAllSelect);
+		this.tableData = Object.assign({}, props.tableData);
 	}
 
 	paginationItemsArray(){
@@ -26,7 +28,7 @@ export class Footer extends Component {
 	}
 
 	paginateTableData(){
-		let paginatedArray = this.state.tableData.data.slice((this.state.currentPage - 1) * this.state.itemsPerPage, (this.state.currentPage) * this.state.itemsPerPage)
+		let paginatedArray = this.tableData.data.slice((this.state.currentPage - 1) * this.state.itemsPerPage, (this.state.currentPage) * this.state.itemsPerPage)
 		this.props.eventEmitter.emit("paginationEvent", { data: paginatedArray} )
 		this.refs.pageSelect.value = this.state.currentPage;
 		this.refs.itemsSelect.value = this.state.itemsPerPage;
@@ -93,28 +95,28 @@ export class Footer extends Component {
 	render(){
 		if(this.props.footer){
 			return (
-				<div className="footer-div">
+				<div style={{ backgroundColor: "#ffffff", color: "#bbbbbd", padding: "20px", borderTop: "1px solid #f2f2f2", position: "relative" }}>
 					
 					<span> Items per Page </span>
 					
-					<div className="items-select">
-						<span className="fa fa-angle-down cursor-pointer"></span>
-						<select ref="itemsSelect" onChange={this.itemsSelectorChanged.bind(this)}>
+					<div style={{ position: "absolute", display: "inline", backgroundColor: "white", border: "1px solid #f1f1f1", width: "60px", height: "30px", top: "15px", left: "130px" }}>
+						<span style={{ position: "absolute", top: "8px", left: "40px", pointerEvents: "none" }} className="fa fa-angle-down cursor-pointer"></span>
+						<select style={{ borderRadius: "0px", backgroundColor: "white", WebkitAppearance: "none", WebkitBorderRadius : "0px", width: "60px", height: "30px", border:  "1px solid #f1f1f1", textIndent: "10px", color: "black" }} ref="itemsSelect" onChange={this.itemsSelectorChanged.bind(this)}>
 							<option value="10">10</option>
 							<option value="20">20</option>
 							<option value="50">50</option>
 						</select>
 					</div>
 					
-					<span className="item-description"> {this.pageStartingIndex()} - {this.pageEndingIndex()} of {this.state.tableData.data.length} items </span>
+					<span style={{ position: "absolute", left: "200px" }} > {this.pageStartingIndex()} - {this.pageEndingIndex()} of {this.state.tableData.data.length} items </span>
 
-					<div className="left-arrow">
-						<span onClick={this.prevPage.bind(this)} className="fa fa-caret-left cursor-pointer"></span>
+					<div>
+						<span onClick={this.prevPage.bind(this)} style={{ position: "absolute", right: "120px", top: "20px", border: "1px solid #f1f1f1", padding: "8px", height: "30px", color: "#71aedb" }} className="fa fa-caret-left cursor-pointer"></span>
 					</div>
 					
-					<div className="page-selector">
-						<span className="fa fa-angle-down cursor-pointer"></span>
-						<select ref="pageSelect" onChange={this.pageSelectorChanged.bind(this)}>
+					<div style={{ position: "absolute", top: "20px", right: "50px" }} >
+						<span style={{ 	position: "absolute", top: "8px", left: "40px", pointerEvents: "none" }} className="fa fa-angle-down cursor-pointer"></span>
+						<select style={{ borderRadius: "0px", backgroundColor: "white", color: "black", WebkitAppearance: "none", WebkitBorderRadius: "0px", width: "60px", height: "30px", border: "1px solid #f1f1f1", textIndent: "10px" }} ref="pageSelect" onChange={this.pageSelectorChanged.bind(this)}>
 							{
 								this.getPagesNumbersList().map((number, index)=>{
 									return (
@@ -126,7 +128,7 @@ export class Footer extends Component {
 					</div>
 					
 					<div className="right-arrow">
-						<span onClick={this.nextPage.bind(this)} className="fa fa-caret-right cursor-pointer"></span>
+						<span style={{ position: "absolute", border: "1px solid #f1f1f1", padding: "8px", top: "20px", right: "20px", height: "30px", color: "#71aedb" }} onClick={this.nextPage.bind(this)} className="fa fa-caret-right cursor-pointer"></span>
 					</div>
 						
 				</div>

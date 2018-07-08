@@ -5,16 +5,14 @@ import { SearchBar } from "./search-bar/SearchBar";
 import * as EventEmitter from "event-emitter";
 
 export class Table extends Component {
-
-	eventEmitter : EventEmitter;
 	
 	constructor(props){
 		super(props);
-		this.eventEmitter = EventEmitter();
 		this.state = { tableData: props.data };
 	}
 
 	render(){
+		let eventEmitter = EventEmitter.default();
 		return (
 			<div>
 				<SearchBar eventEmitter={this.eventEmitter} tableData={this.state.tableData} searchBar={this.props.searchBar} />

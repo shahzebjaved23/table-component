@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 export class Footer extends Component {
 
+	tableData: any;
+
 	constructor(props){
 		super(props);
 		this.state = { tableData: props.tableData, itemsPerPage: 10, currentPage: 1 };
@@ -53,8 +55,7 @@ export class Footer extends Component {
 	}
 
 	pageSelectorChanged(){
-		let selectNode = this.refs.pageSelect;
-		let selectedPage = selectNode.options[selectNode.selectedIndex].value;
+		let selectedPage = this.refs.pageSelect.value;
 		this.setState({currentPage: parseInt(selectedPage) }, this.paginateTableData);
 	}
 
@@ -86,7 +87,13 @@ export class Footer extends Component {
 		}
 	}
 
-	componentDidMount(){ if(this.props.footer) this.paginateTableData() }
+	componentDidMount(){ 
+		this.props.eventEmitter.on("paginateArray", (searchedArray)=>{
+				this.setState({ tableData:{ data: searchedArray.data, headerMetadata: this.state.tableData.headerMetadata } }, this.paginateTableData.bind(this))
+			}
+		); 
+		if(this.props.footer) this.paginateTableData() 
+	}
 
 	render(){
 		if(this.props.footer){

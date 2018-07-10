@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 export class Footer extends Component {
 
-	tableData: any;
-
 	constructor(props){
 		super(props);
 		this.state = { tableData: props.tableData, itemsPerPage: 10, currentPage: 1 };

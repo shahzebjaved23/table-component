@@ -7,8 +7,6 @@ export class Footer extends Component {
 	constructor(props){
 		super(props);
 		this.state = { tableData: props.tableData, itemsPerPage: 10, currentPage: 1 };
-		document.addEventListener("click", this.closeAllSelect);
-		this.tableData = Object.assign({}, props.tableData);
 	}
 
 	paginationItemsArray(){
@@ -28,7 +26,7 @@ export class Footer extends Component {
 	}
 
 	paginateTableData(){
-		let paginatedArray = this.tableData.data.slice((this.state.currentPage - 1) * this.state.itemsPerPage, (this.state.currentPage) * this.state.itemsPerPage)
+		let paginatedArray = this.state.tableData.data.slice((this.state.currentPage - 1) * this.state.itemsPerPage, (this.state.currentPage) * this.state.itemsPerPage)
 		this.props.eventEmitter.emit("paginationEvent", { data: paginatedArray} )
 		this.refs.pageSelect.value = this.state.currentPage;
 		this.refs.itemsSelect.value = this.state.itemsPerPage;
@@ -90,7 +88,13 @@ export class Footer extends Component {
 		}
 	}
 
-	componentDidMount(){ if(this.props.footer) this.paginateTableData() }
+	componentDidMount(){ 
+		this.props.eventEmitter.on("paginateArray", (searchedArray)=>{
+				this.setState({ tableData:{ data: searchedArray.data, headerMetadata: this.state.tableData.headerMetadata } }, this.paginateTableData.bind(this))
+			}
+		); 
+		if(this.props.footer) this.paginateTableData() 
+	}
 
 	render(){
 		if(this.props.footer){

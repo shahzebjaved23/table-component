@@ -8,21 +8,26 @@ export class SearchBar extends Component {
 	}
 
 	searchTableData(){
-		let searchQuery = this.refs.searchInput.value;
-		let searchedArray = []; 
-		for(let i = 0; i < this.state.tableData.data.length; i++){
-			let element = this.state.tableData.data[i];
-			let elementKeys = Object.keys(element);
-			for(let j = 0; j < elementKeys.length; j++){
-				let elementKey = elementKeys[j];
-				let elementTerm = element[elementKey];
-				if(elementTerm.toString().includes(searchQuery)){
-					searchedArray.push(element);
-					break;
+		let searchQuery = this.refs.searchInput.value.trim();
+		let searchedArray = [];
+		if(searchQuery != ""){
+			for(let i = 0; i < this.state.tableData.data.length; i++){
+				let element = this.state.tableData.data[i];
+				let elementKeys = Object.keys(element);
+				for(let j = 0; j < elementKeys.length; j++){
+					let elementKey = elementKeys[j];
+					let elementTerm = element[elementKey];
+					if(elementTerm.toString().includes(searchQuery)){
+						searchedArray.push(element);
+						break;
+					}
 				}
 			}
+			this.props.eventEmitter.emit("searchEvent", { data: searchedArray })
+		}else{
+			this.props.eventEmitter.emit("searchEvent", { data: this.state.tableData.data })	
 		}
-		this.props.eventEmitter.emit("searchEvent", { data: searchedArray })
+		
 	}
 
 	render(){

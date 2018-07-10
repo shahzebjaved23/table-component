@@ -4,7 +4,7 @@ export class DisplayTable extends Component {
 
 	constructor(props){
 		super(props);
-		this.state = { tableData : props.tableData, sortOrder: 1, indexSorted: 0 };
+		this.state = { tableData : props.tableData, sortKey: "id" ,sortOrder: 1, sortIndex: 0 };
 	}
 
 	getTableHeaders(){
@@ -16,14 +16,14 @@ export class DisplayTable extends Component {
 				let headerObject = this.state.tableData.headerMetadata[headerMetaDataKeys[i]];
 				headersArray.push(headerObject);
 			}
-			headersArray = this.applyEditButtons(headersArray);
+			headersArray = this.applyEditButtonsToHeaders(headersArray);
 			return headersArray;
 		}else{
 			return [];
 		}
 	}
 
-	applyEditButtons(headersArray){
+	applyEditButtonsToHeaders(headersArray){
 		if(this.props.editButtons){
 			headersArray.push({}); headersArray.push({});
 			return headersArray;
@@ -63,54 +63,60 @@ export class DisplayTable extends Component {
 
 	listenPaginationEvent(){
 		this.props.eventEmitter.on("paginationEvent", (paginatedArray)=>{ 
-			if(paginatedArray.data.length > 0) 
-				this.setState({ tableData: { data: paginatedArray.data, headerMetadata: this.state.tableData.headerMetadata } }, () => this.applySortStyle(this.state.indexSorted) ) 
+			if(paginatedArray.data.length > 0) {
+				this.setState({ tableData: { data: paginatedArray.data, headerMetadata: this.state.tableData.headerMetadata }, sortOrder: this.state.sortOrder }, () => {
+						this.applyTableSort();
+					}
+				)
+			}
 		}) 
 	}
 
 	listenSearchEvent(){
 		this.props.eventEmitter.on("searchEvent", (searchedArray)=>{
 			this.setState({ tableData:{ data: searchedArray.data, headerMetadata: this.state.tableData.headerMetadata } }, () => {
-					if(searchedArray.data.length > 0) 
-						this.applySortStyle(this.state.indexSorted) 
+					if(searchedArray.data.length > 0){
+						this.applySortStyle()
+						this.props.eventEmitter.emit("paginateArray", searchedArray);
+					} 
 				}
 			)	
 		})
 	}
 
 	sortByHeader(key, index){
-		this.toggleSortOrder();
-		let sortedArray = this.state.tableData.data.sort(this.dynamicSort(key, this.state.sortOrder));
-		this.setSortStyles(index);
-		this.setState({ tableData: { data: sortedArray, headerMetadata: this.state.tableData.headerMetadata }, indexSorted: index });	
+		this.setState({ sortKey: key, sortIndex: index });
+		this.toggleSortOrder(this.applyTableSort);
 	}
 
-	setSortStyles(index){
-		this.removePrevSortStyle(this.state.indexSorted);
-		this.applySortStyle(index);
+	applyTableSort(){
+		let sortedArray = this.state.tableData.data.sort(this.dynamicSort(this.state.sortKey, parseInt(this.state.sortOrder)));
+		this.setState({ tableData: { data: sortedArray, headerMetadata: this.state.tableData.headerMetadata } });
+		this.removePrevSortStyle();
+		this.applySortStyle();	
 	}
 
-	applySortStyle(index){
+	applySortStyle(){
 		if(this.refs.displayTableBody && this.refs.displayTableHead){
 			let bodyRows = this.refs.displayTableBody.childNodes;
 			for(let i=0; i < bodyRows.length; i++){
-				bodyRows[i].childNodes[index].style.color = "#71aedb"
+				bodyRows[i].childNodes[this.state.sortIndex].style.color = "#71aedb"
 			}
 
 			let headerRows = this.refs.displayTableHead.childNodes;
 			for(let i=0; i < headerRows.length; i++){
 				if(this.state.sortOrder === 1){
-					headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "block";
-					headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "none";	
+					headerRows[i].childNodes[this.state.sortIndex].getElementsByTagName("i")[0].style.display = "block";
+					headerRows[i].childNodes[this.state.sortIndex].getElementsByTagName("i")[1].style.display = "none";	
 				}else if(this.state.sortOrder === -1){
-					headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "block";
-					headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "none";
+					headerRows[i].childNodes[this.state.sortIndex].getElementsByTagName("i")[1].style.display = "block";
+					headerRows[i].childNodes[this.state.sortIndex].getElementsByTagName("i")[0].style.display = "none";
 				}
 			}
 		}
 	}
 
-	removePrevSortStyle(index){
+	removePrevSortStyle(){
 		let bodyRows = this.refs.displayTableBody.childNodes;
 		for(let i=0; i < bodyRows.length; i++){
 			bodyRows[i].childNodes.forEach( (node) => {
@@ -120,15 +126,15 @@ export class DisplayTable extends Component {
 
 		let headerRows = this.refs.displayTableHead.childNodes;
 		for(let i=0; i < headerRows.length; i++){
-			headerRows[i].childNodes[index].getElementsByTagName("i")[0].style.display = "none";
-			headerRows[i].childNodes[index].getElementsByTagName("i")[1].style.display = "none";	
+			headerRows[i].childNodes[this.state.sortIndex].getElementsByTagName("i")[0].style.display = "none";
+			headerRows[i].childNodes[this.state.sortIndex].getElementsByTagName("i")[1].style.display = "none";	
 		}	
 	}
 
 
-	toggleSortOrder(){
-		if(this.state.sortOrder === 1) this.setState({ sortOrder: -1 })
-		if(this.state.sortOrder === -1) this.setState({ sortOrder: 1 })
+	toggleSortOrder(callback){
+		if(this.state.sortOrder === 1) this.setState({ sortOrder: -1 }, callback)
+		if(this.state.sortOrder === -1) this.setState({ sortOrder: 1 }, callback)
 	}
 
 	dynamicSort(property, sortOrder) {
@@ -139,7 +145,7 @@ export class DisplayTable extends Component {
 	}
 
 	componentDidMount(){
-		this.applySortStyle(this.state.indexSorted);
+		this.applySortStyle();
 	}
 
 	componentWillMount(){
@@ -158,7 +164,7 @@ export class DisplayTable extends Component {
 								this.getTableHeaders().map((headerObj, index)=>{ 
 									return (
 										<th style={{ textAlign: "center", fontWeight: "normal", borderTop: "none", border: "none" }} key={index}>
-											<span onClick={this.sortByHeader.bind(this, headerObj.name, index)} style={{ position: "relative" ,cursor: "pointer" }}>
+											<span onClick={this.sortByHeader.bind(this,headerObj.name, index)} style={{ position: "relative" ,cursor: "pointer" }}>
 												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-down"></i>
 												<i style={{ position: "absolute", right: -20, top:1 , color: "#71aedb" , display: "none"}} className="fas fa-angle-up"></i>
 												{headerObj.name}

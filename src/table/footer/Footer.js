@@ -55,8 +55,7 @@ export class Footer extends Component {
 	}
 
 	pageSelectorChanged(){
-		let selectNode = this.refs.pageSelect;
-		let selectedPage = selectNode.options[selectNode.selectedIndex].value;
+		let selectedPage = this.refs.pageSelect.value;
 		this.setState({currentPage: parseInt(selectedPage) }, this.paginateTableData);
 	}
 

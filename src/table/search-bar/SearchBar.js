@@ -23,9 +23,9 @@ export class SearchBar extends Component {
 					}
 				}
 			}
-			this.props.eventEmitter.emit("searchEvent", { data: searchedArray })
+			this.props.searchEvent(searchedArray);
 		}else{
-			this.props.eventEmitter.emit("searchEvent", { data: this.state.tableData.data })	
+			this.props.searchEvent(this.state.tableData.data);
 		}
 		
 	}

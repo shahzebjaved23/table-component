@@ -61,27 +61,43 @@ export class DisplayTable extends Component {
 		return amountVal;
 	}
 
-	listenPaginationEvent(){
-		this.props.eventEmitter.on("paginationEvent", (paginatedArray)=>{ 
-			if(paginatedArray.data.length > 0) {
-				this.setState({ tableData: { data: paginatedArray.data, headerMetadata: this.state.tableData.headerMetadata }, sortOrder: this.state.sortOrder }, () => {
-						this.applyTableSort();
-					}
-				)
+	checkForPaginationEvent(){
+		if(this.props.paginatedArray.length > 0){
+			this.state = { 
+				tableData: { 
+					data: this.props.paginatedArray, 
+					headerMetadata: this.state.tableData.headerMetadata 
+				},
+				sortKey: this.state.sortKey ,
+				sortOrder: this.state.sortOrder, 
+				sortIndex: this.state.sortIndex
 			}
-		}) 
+		}
 	}
 
-	listenSearchEvent(){
-		this.props.eventEmitter.on("searchEvent", (searchedArray)=>{
-			this.setState({ tableData:{ data: searchedArray.data, headerMetadata: this.state.tableData.headerMetadata } }, () => {
-					if(searchedArray.data.length > 0){
-						this.applySortStyle()
-						this.props.eventEmitter.emit("paginateArray", searchedArray);
-					} 
-				}
-			)	
-		})
+	checkForSearchEvent(){
+		console.log("searchedArray",this.props.searchedArray)
+		if(this.props.searchedArray.length > 0){
+			this.state = { 
+				tableData: { 
+					data: this.props.searchedArray, 
+					headerMetadata: this.state.tableData.headerMetadata 
+				},
+				sortKey: this.state.sortKey ,
+				sortOrder: this.state.sortOrder, 
+				sortIndex: this.state.sortIndex, 
+			}
+			this.applySortStyle()
+			// this.props.eventEmitter.emit("paginateArray", searchedArray); 
+		}else{
+			this.state = { 
+				tableData: this.props.tableData, 
+				sortKey: this.state.sortKey ,
+				sortOrder: this.state.sortOrder, 
+				sortIndex: this.state.sortIndex, 
+			}
+		}
+		this.checkForPaginationEvent();
 	}
 
 	sortByHeader(key, index){
@@ -144,16 +160,11 @@ export class DisplayTable extends Component {
 	    }
 	}
 
-	componentDidMount(){
-		this.applySortStyle();
-	}
-
-	componentWillMount(){
-		this.listenPaginationEvent();
-		this.listenSearchEvent();
-	}
+	componentDidMount(){ this.applySortStyle() }
 
 	render(){
+		this.checkForPaginationEvent();
+		this.checkForSearchEvent();
 		return (
 			<div>
 				<table ref="displayTable" align="center" className="table text-centered">

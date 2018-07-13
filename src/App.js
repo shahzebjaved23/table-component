@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table } from './table/Table.js';
+import { Table as ReactTable } from './table/Table.js';
 import './App.css';
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
     }
 
     render() {
-        return <Table data={this.state.tableData} searchBar={true} footer={true} editButtons={false} />
+        return <ReactTable data={this.state.tableData} searchBar={true} footer={true} editButtons={false} />
     }
 }
 

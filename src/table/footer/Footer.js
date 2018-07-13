@@ -33,10 +33,7 @@ export class Footer extends Component {
 
 	paginateTableData(){
 		let paginatedArray = this.state.tableData.data.slice((this.state.currentPage - 1) * this.state.itemsPerPage, (this.state.currentPage) * this.state.itemsPerPage)
-		this.props.eventEmitter.emit("paginationEvent", { data: paginatedArray} )
-		console.log("start index",(this.state.currentPage - 1) * this.state.itemsPerPage);
-		console.log("end index", (this.state.currentPage) * this.state.itemsPerPage);
-		console.log("paginationItemsArray",this.paginationItemsArray())
+		this.props.paginationEvent(paginatedArray);
 		this.refs.pageSelect.value = this.state.currentPage;
 		this.refs.itemsSelect.value = this.state.itemsPerPage;
 	}
@@ -61,8 +58,11 @@ export class Footer extends Component {
 		let selectNode = this.refs.itemsSelect;
 		let selected = selectNode.options[selectNode.selectedIndex].value;
 		this.setState({itemsPerPage: parseInt(selected) }, ()=>{
-			if(this.itemsInCurrentPage() == null || this.itemsInCurrentPage() == undefined)
-				this.setState({ currentPage: this.getPagesNumber() }, this.paginateTableData)
+			if(this.itemsInCurrentPage() == null || this.itemsInCurrentPage() == undefined){
+				this.setState({ currentPage: this.getPagesNumber() }, this.paginateTableData);
+			}else{
+				this.paginateTableData();
+			}
 		});
 	}
 
@@ -86,24 +86,18 @@ export class Footer extends Component {
 	}
 
 	nextPage(){
-		this.props.eventEmitter.emit("nextPage", { itemsPerPage: this.state.itemsPerPage, currentPage: this.state.currentPage})
 		if(this.state.currentPage !== this.getPagesNumber()){
 			this.setState({currentPage: this.state.currentPage + 1} , this.paginateTableData)
 		}
 	}
 
 	prevPage(){
-		this.props.eventEmitter.emit("prevPage", { itemsPerPage: this.state.itemsPerPage, currentPage: this.state.currentPage})
 		if(this.state.currentPage !== 1){
 			this.setState({ currentPage: this.state.currentPage - 1}, this.paginateTableData)
 		}
 	}
 
 	componentDidMount(){ 
-		this.props.eventEmitter.on("paginateArray", (searchedArray)=>{
-				this.setState({ tableData:{ data: searchedArray.data, headerMetadata: this.state.tableData.headerMetadata } }, this.paginateTableData.bind(this))
-			}
-		); 
 		if(this.props.footer) this.paginateTableData() 
 	}
 

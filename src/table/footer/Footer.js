@@ -12,22 +12,31 @@ export class Footer extends Component {
 	paginationItemsArray(){
 		let pageItems = [];
 		let totalItems = this.state.tableData.data.length;
-		pageItems.push(this.state.itemsPerPage)
-		while(true){
-			totalItems = totalItems - this.state.itemsPerPage
-			if( totalItems >= this.state.itemsPerPage ){
-				pageItems.push(this.state.itemsPerPage);
-			}else{
-				pageItems.push(Math.abs(totalItems));
-				break;
+
+		if(this.state.itemsPerPage >= this.state.tableData.data.length){
+			pageItems.push(this.state.tableData.data.length);
+		}else{
+			pageItems.push(this.state.itemsPerPage);
+			while(pageItems.length <= this.getPagesNumber()){
+				totalItems = totalItems - this.state.itemsPerPage
+				if( totalItems >= this.state.itemsPerPage ){
+					pageItems.push(this.state.itemsPerPage);
+				}else{
+					pageItems.push(Math.abs(totalItems));
+					break;
+				}
 			}
 		}
+
 		return pageItems;
 	}
 
 	paginateTableData(){
 		let paginatedArray = this.state.tableData.data.slice((this.state.currentPage - 1) * this.state.itemsPerPage, (this.state.currentPage) * this.state.itemsPerPage)
 		this.props.eventEmitter.emit("paginationEvent", { data: paginatedArray} )
+		console.log("start index",(this.state.currentPage - 1) * this.state.itemsPerPage);
+		console.log("end index", (this.state.currentPage) * this.state.itemsPerPage);
+		console.log("paginationItemsArray",this.paginationItemsArray())
 		this.refs.pageSelect.value = this.state.currentPage;
 		this.refs.itemsSelect.value = this.state.itemsPerPage;
 	}
@@ -51,7 +60,10 @@ export class Footer extends Component {
 	itemsSelectorChanged(){
 		let selectNode = this.refs.itemsSelect;
 		let selected = selectNode.options[selectNode.selectedIndex].value;
-		this.setState({itemsPerPage: parseInt(selected) }, this.paginateTableData);
+		this.setState({itemsPerPage: parseInt(selected) }, ()=>{
+			if(this.itemsInCurrentPage() == null || this.itemsInCurrentPage() == undefined)
+				this.setState({ currentPage: this.getPagesNumber() }, this.paginateTableData)
+		});
 	}
 
 	pageSelectorChanged(){

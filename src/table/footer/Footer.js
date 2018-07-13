@@ -61,8 +61,11 @@ export class Footer extends Component {
 		let selectNode = this.refs.itemsSelect;
 		let selected = selectNode.options[selectNode.selectedIndex].value;
 		this.setState({itemsPerPage: parseInt(selected) }, ()=>{
-			if(this.itemsInCurrentPage() == null || this.itemsInCurrentPage() == undefined)
-				this.setState({ currentPage: this.getPagesNumber() }, this.paginateTableData)
+			if(this.itemsInCurrentPage() == null || this.itemsInCurrentPage() == undefined){
+				this.setState({ currentPage: this.getPagesNumber() }, this.paginateTableData);
+			}else{
+				this.paginateTableData();
+			}
 		});
 	}
 

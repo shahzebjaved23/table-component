@@ -4,7 +4,7 @@ export class DisplayTable extends Component {
 
 	constructor(props){
 		super(props);
-		this.state = { tableData : props.tableData, sortKey: "id" ,sortOrder: 1, sortIndex: 0 };
+		this.state = { tableData : props.tableData, sortKey: "id" ,sortOrder: 1, sortIndex: 0, unPaginatedArray: props.tableData.data };
 	}
 
 	getTableHeaders(){
@@ -64,10 +64,13 @@ export class DisplayTable extends Component {
 	listenPaginationEvent(){
 		this.props.eventEmitter.on("paginationEvent", (paginatedArray)=>{ 
 			if(paginatedArray.data.length > 0) {
-				this.setState({ tableData: { data: paginatedArray.data, headerMetadata: this.state.tableData.headerMetadata }, sortOrder: this.state.sortOrder }, () => {
-						this.applyTableSort();
-					}
-				)
+				this.setState({ 
+					tableData: { 
+						data: paginatedArray.data, 
+						headerMetadata: this.state.tableData.headerMetadata 
+					}, 
+					sortOrder: this.state.sortOrder 
+				}, this.applySortStyle)
 			}
 		}) 
 	}
@@ -90,8 +93,8 @@ export class DisplayTable extends Component {
 	}
 
 	applyTableSort(){
-		let sortedArray = this.state.tableData.data.sort(this.dynamicSort(this.state.sortKey, parseInt(this.state.sortOrder)));
-		this.setState({ tableData: { data: sortedArray, headerMetadata: this.state.tableData.headerMetadata } });
+		let sortedArray = this.state.unPaginatedArray.sort(this.dynamicSort(this.state.sortKey, parseInt(this.state.sortOrder)));
+		this.props.eventEmitter.emit("paginateArray", { data: sortedArray });
 		this.removePrevSortStyle();
 		this.applySortStyle();	
 	}

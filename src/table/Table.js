@@ -27,19 +27,13 @@ class EventEmitter {
 	eventsArray = [];
 
 	on(eventName, callback){
-		let eventObj = {
-			name: eventName,
-			callback: callback
-		}
+		let eventObj = { name: eventName, callback: callback }
 		this.eventsArray.push(eventObj);
 	}
 
-	emit(eventName, ... args){
+	emit(eventName, ...args){
 		this.eventsArray.forEach((obj)=>{
-			if(obj.name == eventName){
-				console.log(args);
-				obj.callback(args[0])
-			}
+			if(obj.name == eventName) obj.callback(args[0])
 		})
 	}
 }

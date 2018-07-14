@@ -24,18 +24,13 @@ export class Table extends Component {
 
 class EventEmitter {
 
-	constructor(){
-		this.eventsArray = [];	
-	}
+	constructor(){ this.eventsArray = [] }
 
 	on(eventName, callback){
-		let eventObj = { name: eventName, callback: callback }
-		this.eventsArray.push(eventObj);
+		this.eventsArray.push({ name: eventName, callback: callback });
 	}
 
-	emit(eventName, ...args){
-		this.eventsArray.forEach((obj)=>{
-			if(obj.name == eventName) obj.callback(args[0])
-		})
+	emit(eventName, args){
+		this.eventsArray.forEach( obj => obj.name == eventName ? obj.callback(args) : null )
 	}
 }

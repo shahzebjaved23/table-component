@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Footer } from "./footer/Footer";
 import { DisplayTable } from "./display-table/DisplayTable";
 import { SearchBar } from "./search-bar/SearchBar";
-import * as  EventEmitter from "event-emitter";
 
 export class Table extends Component {
 
@@ -12,7 +11,7 @@ export class Table extends Component {
 	}
 
 	render(){
-		let eventEmitter = EventEmitter();
+		let eventEmitter = new EventEmitter();
 		return (
 			<div>
 				<SearchBar eventEmitter={eventEmitter} tableData={this.state.tableData} searchBar={this.props.searchBar} />
@@ -20,5 +19,27 @@ export class Table extends Component {
 				<Footer eventEmitter={eventEmitter} tableData={this.state.tableData} footer={this.props.footer} />
 			</div>
 		)	
+	}
+}
+
+class EventEmitter {
+
+	eventsArray = [];
+
+	on(eventName, callback){
+		let eventObj = {
+			name: eventName,
+			callback: callback
+		}
+		this.eventsArray.push(eventObj);
+	}
+
+	emit(eventName, ... args){
+		this.eventsArray.forEach((obj)=>{
+			if(obj.name == eventName){
+				console.log(args);
+				obj.callback(args[0])
+			}
+		})
 	}
 }

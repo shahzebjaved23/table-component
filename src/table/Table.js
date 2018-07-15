@@ -3,12 +3,18 @@ import { Footer } from "./footer/Footer";
 import { DisplayTable } from "./display-table/DisplayTable";
 import { SearchBar } from "./search-bar/SearchBar";
 
+class EventEmitter {
+	constructor(){ this.eventsArray = [] }
+	on(eventName, callback){ this.eventsArray.push({ name: eventName, callback: callback }) }
+	emit(eventName, args){ this.eventsArray.forEach( obj => obj.name == eventName ? obj.callback(args) : null ) }
+}
+
 export class Table extends Component {
 
 	constructor(props){
-		super(props);
-		this.state = { tableData: props.data };
-		this.eventEmitter = new EventEmitter();
+		super(props)
+		this.state = { tableData: props.data }
+		this.eventEmitter = new EventEmitter()
 	}
 
 	render(){
@@ -22,17 +28,4 @@ export class Table extends Component {
 	}
 }
 
-
-class EventEmitter {
-
-	constructor(){ this.eventsArray = [] }
-
-	on(eventName, callback){
-		this.eventsArray.push({ name: eventName, callback: callback });
-	}
-
-	emit(eventName, args){
-		this.eventsArray.forEach( obj => obj.name == eventName ? obj.callback(args) : null )
-	}
-}
 

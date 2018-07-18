@@ -127,10 +127,10 @@ export class DisplayTable extends Component {
 			})
 		}
 
-		let headerRows = this.refs.displayTableHead.childNodes;
+		let headerRows = this.refs.tableHeadRow.childNodes;
 		for(let i=0; i < headerRows.length; i++){
-			headerRows[i].childNodes[this.state.sortIndex].getElementsByTagName("i")[0].style.display = "none";
-			headerRows[i].childNodes[this.state.sortIndex].getElementsByTagName("i")[1].style.display = "none";	
+			headerRows[i].childNodes[0].getElementsByTagName("i")[0].style.display = "none"
+			headerRows[i].childNodes[0].getElementsByTagName("i")[1].style.display = "none"
 		}	
 	}
 
@@ -162,7 +162,7 @@ export class DisplayTable extends Component {
 				<table ref="displayTable" align="center" className="table text-centered">
 					
 					<thead ref="displayTableHead" style={{ backgroundColor: "#f6f7fb", color: "#62656c", borderTop: "1px solid #f2f2f2", borderBottom: "1px solid #f2f2f2" }}>
-					    <tr>
+					    <tr ref="tableHeadRow">
 							{
 								this.getTableHeaders().map((headerObj, index)=>{ 
 									return (

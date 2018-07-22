@@ -32,9 +32,6 @@ export class Footer extends Component {
 	paginateTableData(){
 		let paginatedArray = this.state.tableData.data.slice((this.state.currentPage - 1) * this.state.itemsPerPage, (this.state.currentPage) * this.state.itemsPerPage)
 		this.props.eventEmitter.emit("paginationEvent", { data: paginatedArray} )
-		console.log("start index",(this.state.currentPage - 1) * this.state.itemsPerPage);
-		console.log("end index", (this.state.currentPage) * this.state.itemsPerPage);
-		console.log("paginationItemsArray",this.paginationItemsArray())
 		this.refs.pageSelect.value = this.state.currentPage;
 		this.refs.itemsSelect.value = this.state.itemsPerPage;
 	}
